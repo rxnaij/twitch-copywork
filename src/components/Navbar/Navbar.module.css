@@ -1,0 +1,41 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 50px;
+    padding: 0 10px;
+
+    background-color: hsla(240, 6%, 10%, 1);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.55);
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.nav > *:not(:last-child) {
+    margin-right: 30px;
+}
+
+.link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.auth {
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    align-items: center;
+}
+
+.auth > *:not(:last-child) {
+    margin-right: 10px;
+}

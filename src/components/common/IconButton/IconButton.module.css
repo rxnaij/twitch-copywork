@@ -1,0 +1,36 @@
+.button {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+}
+
+.button:hover::after {
+    position: absolute;
+    display: block;
+    top: 35px;
+    background-color: white;
+
+    border-radius: 4px;
+    padding: 3px 6px;
+
+    color: black;
+    font-weight: 600;
+    text-align: center;
+    content: attr(data-tooltip-message);
+}
+
+/*
+
+TODO:
+Split tooltip positioning into top, bottom, and right classes
+
+*/
+
+.top {
+
+}
+
+.bottom {
+
+}
