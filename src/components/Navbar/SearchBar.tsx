@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import styles from './SearchBar.module.css'
 import IconButton from '../common/IconButton/IconButton'
 import { ReactComponent as CloseIcon } from '../../assets/icons/Close.svg'
@@ -15,12 +15,12 @@ const sampleSearchResults = [
 
 export default function SearchBar() {
     const searchResultsRef = useRef<HTMLDivElement>(null)
+    const [searchResults, setSearchResults] = useState(sampleSearchResults)
 
     const {
         modalIsOpen: searchResultsOpen, 
         setModalIsOpen: setSearchResultsOpen
     } = useOutsideClickListener(searchResultsRef)
-
     return (
         <div ref={searchResultsRef} className={styles.container}>
             <div className={styles.searchBar}>
@@ -32,19 +32,25 @@ export default function SearchBar() {
             {
                 searchResultsOpen && <div className={styles.searchOverlay}>
                     {
-                        sampleSearchResults.map(result => {
-                            return(
-                                <div className={styles.searchResults} key={result}>
-                                    <a className={styles.result} href="/">
-                                        <div className={styles.name}>
-                                            <SearchHistoryIcon width={20} height={20} fill="hsla(264, 100%, 64%, 1)" />
-                                            <span>{result}</span>
-                                        </div>
-                                        <IconButton icon={CloseIcon} />
-                                    </a>
-                                </div>
-                            )
-                        })
+                        searchResults.map((result, i) => (
+                            <div className={styles.searchResults} key={result}>
+                                <a className={styles.result} href="/">
+                                    <div className={styles.name}>
+                                        <SearchHistoryIcon width={20} height={20} fill="hsla(264, 100%, 64%, 1)" />
+                                        <span>{result}</span>
+                                    </div>
+                                    <IconButton 
+                                        icon={CloseIcon}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            setSearchResults(
+                                                [...searchResults.slice(0, i), ...searchResults.slice(i + 1)]
+                                            )
+                                        }}
+                                    />
+                                </a>
+                            </div>
+                        ))
                     }
                 </div>
             }

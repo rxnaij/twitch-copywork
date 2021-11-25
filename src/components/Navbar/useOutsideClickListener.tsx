@@ -14,13 +14,17 @@ export function useOutsideClickListener(modalRef: MutableRefObject<HTMLElement |
         if (!modalRef.current) return
 
         // We store the modal to a variable in case modalRef.current changes value before cleanup.
-        const modal = modalRef.current
+        const modalElement = modalRef.current
 
         // Close the modal when clicked outside.
-        const closeModalHandler = (e: MouseEvent) => {
+        const closeModalHandler = (event: MouseEvent) => {
+            // Don't proceed with the check if a click event was prevented.
+            // Avoids clashing with click events on modal elements that remove said elements.
+            // It's also a good alternative to event.stopPropagation() — see https://css-tricks.com/dangers-stopping-event-propagation/
+            if (event.defaultPrevented) return
             // Casting the EventTarget to an HTMLElement here because I don't think
             // the user will be clicking any non-HTML elements. I hope that's OK
-            if (modal.contains(e.target as HTMLElement)) return
+            if (modalElement.contains(event.target as HTMLElement)) return
             setModalIsOpen(false)
         }
 

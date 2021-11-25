@@ -1,8 +1,8 @@
-import Button from '../Button/Button'
+import Button, { ButtonProps } from '../Button/Button'
 import styles from './IconButton.module.css'
 import clsx from 'clsx'
 
-interface IconButtonProps {
+interface IconButtonProps extends ButtonProps {
     icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
         title?: string | undefined;
     }>
@@ -10,7 +10,7 @@ interface IconButtonProps {
     label?: string
 }
 
-export default function IconButton({ icon, tooltip, label }: IconButtonProps) {
+export default function IconButton({ icon, tooltip, label, ...rest }: IconButtonProps) {
     const Icon = icon
     return (
         <Button 
@@ -20,6 +20,7 @@ export default function IconButton({ icon, tooltip, label }: IconButtonProps) {
                 tooltip && styles[tooltip]
             )} 
             data-tooltip-message={label}
+            {...rest}
         >
             <Icon width={20} height={20} fill="#FFFFFF" />
         </Button>
