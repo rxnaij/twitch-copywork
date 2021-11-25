@@ -43,7 +43,7 @@ export default function SearchBar() {
         setListening,
         ref,
         setSearchResultsOpen
-    ))
+    ), [])
 
     return (
         <div ref={ref} className={styles.container}>
@@ -58,13 +58,13 @@ export default function SearchBar() {
                     {
                         sampleSearchResults.map(result => {
                             return(
-                                <div className={styles.searchResults}>
+                                <div className={styles.searchResults} key={result}>
                                     <a className={styles.result} href="/">
                                         <div className={styles.name}>
                                             <SearchHistoryIcon width={20} height={20} fill="hsla(264, 100%, 64%, 1)" />
                                             <span>{result}</span>
                                         </div>
-                                        <IconButton icon={CloseIcon} tooltip="top" label="" />
+                                        <IconButton icon={CloseIcon} />
                                     </a>
                                 </div>
                             )

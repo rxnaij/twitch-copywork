@@ -19,10 +19,10 @@ export default function Navbar() {
             </div>
             <SearchBar />
             <div className={styles.auth}>
-                <IconButton icon={PrimeIcon} tooltip="top" label="Prime Rewards" />
+                <IconButton icon={PrimeIcon} tooltip="bottom" label="Prime Rewards" />
                 <Button variant="secondary">Log In</Button>
                 <Button>Sign Up</Button>
-                <IconButton icon={ProfileIcon} tooltip="bottom" label="" />
+                <IconButton icon={ProfileIcon} />
             </div>
         </nav>
     )

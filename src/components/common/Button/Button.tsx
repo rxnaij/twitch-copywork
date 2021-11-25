@@ -1,16 +1,20 @@
+import React, { ComponentPropsWithoutRef } from 'react'
 import styles from './Button.module.css'
 import clsx from 'clsx'
 
-interface ButtonProps {
+interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
     children: React.ReactNode
-    className?: string
     variant?: 'primary' | 'secondary' | 'clear'
-    onClick?: () => void
     tooltipMessage?: string
 }
 
-export default function Button({ children, className, variant="primary", onClick, tooltipMessage="" }: ButtonProps) {
-
+const Button = ({
+    children,
+    className,
+    variant = "primary",
+    tooltipMessage = "",
+    ...rest
+}: ButtonProps) => {
     return (
         <button
             className={clsx(
@@ -18,10 +22,11 @@ export default function Button({ children, className, variant="primary", onClick
                 styles[variant],
                 className
             )}
-            onClick={onClick}
-            data-tooltip-message={tooltipMessage}
+            {...rest}
         >
-            { children }
+            {children}
         </button>
     )
 }
+
+export default Button

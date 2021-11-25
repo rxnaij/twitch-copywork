@@ -8,7 +8,6 @@
 .button:hover::after {
     position: absolute;
     display: block;
-    top: 35px;
     background-color: white;
 
     border-radius: 4px;
@@ -17,7 +16,6 @@
     color: black;
     font-weight: 600;
     text-align: center;
-    content: attr(data-tooltip-message);
 }
 
 /*
@@ -27,10 +25,16 @@ Split tooltip positioning into top, bottom, and right classes
 
 */
 
-.top {
-
+.top:hover::after {
+    content: attr(data-tooltip-message);
+    bottom: -5px;
 }
 
-.bottom {
+.bottom:hover::after {
+    content: attr(data-tooltip-message);
+    top: 35px;
+}
 
+.right:hover::after {
+    /* WIP */
 }
