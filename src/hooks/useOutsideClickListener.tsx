@@ -22,10 +22,13 @@ export function useOutsideClickListener(modalRef: MutableRefObject<HTMLElement |
             // Avoids clashing with click events on modal elements that remove said elements.
             // It's also a good alternative to event.stopPropagation() — see https://css-tricks.com/dangers-stopping-event-propagation/
             if (event.defaultPrevented) return
+            
             // Casting the EventTarget to an HTMLElement here because I don't think
             // the user will be clicking any non-HTML elements. I hope that's OK
             if (modalElement.contains(event.target as HTMLElement)) return
             setModalIsOpen(false)
+
+            console.log("Modal closed.")
         }
 
         // Listen for a click event outside of the element.

@@ -1,4 +1,10 @@
 :root {
     --color-brand: hsla(264, 100%, 64%, 1);
+    --color-brand-dark: hsla(264, 80%, 54%);
+    --color-brand-light: hsla(264, 100%, 79%);
+    
     --color-transparent: hsla(0, 0%, 100%, 0.2);
+
+    --color-text-primary: hsla(240, 7%, 94%, 1);
+    --color-text-alt: hsla(240, 8%, 88%, 1);
 }

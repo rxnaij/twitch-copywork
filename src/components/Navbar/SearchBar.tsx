@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react'
 import styles from './SearchBar.module.css'
 import IconButton from '../common/IconButton/IconButton'
+import { ReactComponent as SearchIcon } from '../../assets/icons/Search.svg'
 import { ReactComponent as CloseIcon } from '../../assets/icons/Close.svg'
 import { ReactComponent as SearchHistoryIcon } from '../../assets/icons/Search History.svg'
-import { useOutsideClickListener } from './useOutsideClickListener'
+import { useOutsideClickListener } from '../../hooks/useOutsideClickListener'
 
 const sampleSearchResults = [
     'Among Us',
@@ -26,7 +27,7 @@ export default function SearchBar() {
             <div className={styles.searchBar}>
                 <input className={styles.field} onClick={() => setSearchResultsOpen(true)} type="text" name="search" id="" placeholder="Search" />
                 <button className={styles.button}>
-                    <div className={styles.icon}></div>
+                    <SearchIcon width={20} height={20} fill="#ffffff" />
                 </button>
             </div>
             {
@@ -34,9 +35,9 @@ export default function SearchBar() {
                     {
                         searchResults.map((result, i) => (
                             <div className={styles.searchResults} key={result}>
-                                <a className={styles.result} href="/">
+                                <a className={styles.result} href="/#">
                                     <div className={styles.name}>
-                                        <SearchHistoryIcon width={20} height={20} fill="hsla(264, 100%, 64%, 1)" />
+                                        <SearchHistoryIcon width={20} height={20} className={styles.searchResultsIcon} />
                                         <span>{result}</span>
                                     </div>
                                     <IconButton 
