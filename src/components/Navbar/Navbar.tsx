@@ -8,6 +8,7 @@ import {ReactComponent as MenuIcon} from '../../assets/icons/Menu.svg'
 import {ReactComponent as TwitchLogo} from '../../assets/icons/TwitchLogo.svg'
 import MenuWrapper from '../common/MenuWrapper/MenuWrapper'
 import Menu from '../common/Menu/Menu'
+import { CSSTransition } from 'react-transition-group'
 
 export default function Navbar() {
     return (
@@ -108,18 +109,20 @@ export default function Navbar() {
                 <Button>Sign Up</Button>
                 <IconButton icon={ProfileIcon} />
                 <MenuWrapper icon={ProfileIcon} tooltip="bottom" label="Test">
-                    <Menu align="right" name="first" base>
-                        <Menu.Button propertyName="To Second" valueName="Go" navigateTo="second" />
-                        <Menu.Link href="/#">
-                            Filler link
-                        </Menu.Link>
-                    </Menu>
+                    
                     <Menu align="right" name="second">
                         <Menu.Button propertyName="To First" valueName="Go" navigateTo="first" />
                         <Menu.Link href="/#">
-                            Filler link
+                            Here's another filler link
                         </Menu.Link>
                     </Menu>
+                    <Menu align="right" name="first" base>
+                        <Menu.Button propertyName="To Second" valueName="Go" navigateTo="second" />
+                        <Menu.Link href="/#">
+                            First Filler link
+                        </Menu.Link>
+                    </Menu>
+
                 </MenuWrapper>
             </div>
         </nav>

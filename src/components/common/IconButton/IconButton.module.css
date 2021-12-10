@@ -35,17 +35,6 @@
     clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
 }
 
-.icon {
-    width: 0;
-    height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 14px solid #FFFFFF;
-    border-radius: 1px;
-
-    content: '';
-}
-
 
 
 /*

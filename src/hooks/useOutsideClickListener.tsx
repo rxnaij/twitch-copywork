@@ -19,16 +19,20 @@ export function useOutsideClickListener(modalRef: MutableRefObject<HTMLElement |
         // Close the modal when clicked outside.
         const closeModalHandler = (event: MouseEvent) => {
             // Don't proceed with the check if a click event was prevented.
-            // Avoids clashing with click events on modal elements that remove said elements.
+            // Main use case: when an element is unmounted by a callback function,
+            // the page browser forgets that that element was located in the modal at all.
             // It's also a good alternative to event.stopPropagation() — see https://css-tricks.com/dangers-stopping-event-propagation/
             if (event.defaultPrevented) return
             
             // Casting the EventTarget to an HTMLElement here because I don't think
             // the user will be clicking any non-HTML elements. I hope that's OK
-            if (modalElement.contains(event.target as HTMLElement)) return
+            if (modalElement.contains(event.target as HTMLElement)) {
+                console.log("Click inside element - modal stays open")
+                return
+            }
             setModalIsOpen(false)
 
-            console.log("Modal closed.")
+            console.log("Click outside element - modal closed")
         }
 
         // Listen for a click event outside of the element.

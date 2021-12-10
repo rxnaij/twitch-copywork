@@ -29,7 +29,6 @@
 }
 
 .menuEnter {
-    position: absolute;
     transform: translateX(-110%);
 }
 
@@ -39,7 +38,6 @@
 }
 
 .menuExit {
-    position: absolute;
     transform: translateX(-110%);
 }
 
@@ -108,6 +106,10 @@
 
 .button:hover {
     background-color: var(--color-transparent);
+}
+
+.linkButton {
+    cursor: pointer;
 }
 
 .property {

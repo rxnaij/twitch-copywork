@@ -16,6 +16,7 @@ export default function IconButton({ icon, tooltip, label, ...rest }: IconButton
     const Icon = icon
     return (
         <Button 
+            type="button"
             variant="clear" 
             className={clsx(
                 styles.button,

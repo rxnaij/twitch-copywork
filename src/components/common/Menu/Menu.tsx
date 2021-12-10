@@ -7,8 +7,9 @@ import { CSSTransition } from 'react-transition-group'
 interface MenuProps {
     children: React.ReactNode
     align?: "left" | "right"
+    // The following props are only relevant in nested menus.
     name?: string
-    base?: boolean
+    base?: boolean      // If true, is designated as the "initial state" for the menu.
 }
 
 export default function Menu({ children, align="left", name, base=false }: MenuProps) {
@@ -18,14 +19,20 @@ export default function Menu({ children, align="left", name, base=false }: MenuP
     useEffect(() => {
         if (name && activeMenu === undefined && base)
             setActiveMenu(name)
-    }, [])
+        }, 
+        // Disable reason:
+        // This effect should only run once: when the parent MenuWrapper
+        // component mounts.
+        //eslint-disable-next-line
+        []
+    )
 
-    const Container = ({ children }: { children: ReactNode }  ) => {
+    /** Parent container */
+    const TransitionWrapper = ({ children }: { children: ReactNode }  ) => {
         if (name) {
             return (
                 <CSSTransition
                     in={activeMenu === name}
-                    unmountOnExit
                     timeout={500}
                     classNames={{
                         enter: styles.menuEnter,
@@ -33,6 +40,7 @@ export default function Menu({ children, align="left", name, base=false }: MenuP
                         exit: styles.menuExit,
                         exitActive: styles.menuExitActive
                     }}
+                    unmountOnExit
                 >
                     { children }
                 </CSSTransition>
@@ -42,7 +50,7 @@ export default function Menu({ children, align="left", name, base=false }: MenuP
     }
 
     return (
-        <Container>
+        <TransitionWrapper>
             <nav 
                 className={clsx(
                     styles.menu,
@@ -51,7 +59,7 @@ export default function Menu({ children, align="left", name, base=false }: MenuP
             >
                 { children }
             </nav>
-        </Container>
+        </TransitionWrapper>
     )
 }
 
@@ -111,7 +119,16 @@ const Button = ({
     }
 
     return(
-        <div className={styles.button} onClick={navigate}>
+        <div 
+            className={clsx(
+                styles.button, 
+                navigateTo && styles.linkButton
+            )} 
+            onClick={e => {
+                e.preventDefault()
+                navigate()
+            }}
+        >
             <div className={styles.property}>
                 {
                     PropertyIcon &&
