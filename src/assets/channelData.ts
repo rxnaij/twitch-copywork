@@ -1,3 +1,13 @@
+import amouranth from './profile-images/Amouranth.png'
+import aydan from './profile-images/Aydan.png'
+import esfandTV from './profile-images/EsfandTV.png'
+import iiTzTimmy from './profile-images/iiTzTimmy.png'
+import loltyler1 from './profile-images/loltyler1.png'
+import nickmercs from './profile-images/NICKMERCS.png'
+import sodapoppin from './profile-images/sodapoppin.png'
+import symfuhny from './profile-images/Sympuhny.png'
+import tfue from './profile-images/Tfue.png'
+
 export interface Channel {
     user: {
         name: string
@@ -6,16 +16,18 @@ export interface Channel {
     title: string
     category: string
     viewers: number
-    isLive?: boolean
-    thumbnail?: string
-    tags?: string[]
+    stream?: {
+        isLive: boolean
+        thumbnail: string
+        tags: string[]
+    }
 }
 
 const data: Channel[] = [
     {
         user: {
             name: "Symfuhny",
-            profilePhotoURL: ""
+            profilePhotoURL: symfuhny
         },
         title: "ATOMIC CAMO GRIND! CLICK NOW! !Gold",
         category: "Call of Duty: Vanguard",
@@ -24,43 +36,51 @@ const data: Channel[] = [
     {
         user: {
             name: "loltyler1",
-            profilePhotoURL: null
+            profilePhotoURL: loltyler1
         },
         title: "DETERMINE! GREATEST PLAY EVER ANNOUNCEMENT",
         category: "League of Legends",
         viewers: 32200,
-        isLive: true,
-        thumbnail: undefined,
-        tags: [
-            "English"
-        ]
+        stream: {
+            isLive: true,
+            thumbnail: "",
+            tags: [
+                "English"
+            ]
+        }
     },
     {
         user: {
             name: "NICKMERCS",
-            profilePhotoURL: null
+            profilePhotoURL: nickmercs
         },
         title: "Fraggin' | Code: MFAM | @NICKMERCS",
         category: "Apex Legends",
         viewers: 822,
-        isLive: true,
-        thumbnail: undefined,
+        stream: {
+            isLive: true,
+            thumbnail: "",
+            tags: []
+        }
     },
     {
         user: {
             name: "Amouranth",
-            profilePhotoURL: null
+            profilePhotoURL: amouranth
         },
         title: "DINNER WITH JINNYTTY! !s-->social media links",
         category: "Just Chatting",
         viewers: 8600,
-        isLive: true,
-        thumbnail: undefined,
+        stream: {
+            isLive: true,
+            thumbnail: "",
+            tags: []
+        }
     },
     {
         user: {
             name: "Tfue",
-            profilePhotoURL: null
+            profilePhotoURL: tfue
         },
         title: "3 Washed fortnite players hard stuck 10k",
         category: "Apex Legends",
@@ -69,7 +89,7 @@ const data: Channel[] = [
     {
         user: {
             name: "sodapoppin",
-            profilePhotoURL: null
+            profilePhotoURL: sodapoppin
         },
         title: "Short stream",
         category: "Worms: Reloaded",
@@ -78,7 +98,7 @@ const data: Channel[] = [
     {
         user: {
             name: "EsfandTV",
-            profilePhotoURL: null
+            profilePhotoURL: esfandTV
         },
         title: "BBQ W/ ASMONGOLD AND GRAYCEN BEFORE OTK",
         category: "Just Chatting",
@@ -87,7 +107,7 @@ const data: Channel[] = [
     {
         user: {
             name: "Aydan",
-            profilePhotoURL: null
+            profilePhotoURL: aydan
         },
         title: "SND Tournament w/ ScummN | !yt !sub",
         category: "Call of Duty: Vanguard",
@@ -96,7 +116,7 @@ const data: Channel[] = [
     {
         user: {
             name: "iiTzTimmy",
-            profilePhotoURL: null
+            profilePhotoURL: iiTzTimmy
         },
         title: "duo with john // Follow my socials @iiTzTimmy",
         category: "VALORANT",
