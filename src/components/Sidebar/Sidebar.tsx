@@ -32,9 +32,9 @@ function Sidebar() {
             collapsed: isCollapsed, 
             setCollapsed: setCollapsed 
         }}>
-            <Wrapper>
+            <Wrapper collapsed={isCollapsed}>
                 <Header>
-                    <Title isCollapsed={isCollapsed}>Recommended Channels</Title>
+                    <Title collapsed={isCollapsed}>Recommended Channels</Title>
                     <IconButton 
                         icon={Close} 
                         tooltip="right" 
@@ -54,8 +54,16 @@ function Sidebar() {
 
 // Component styling
 
-const Wrapper = styled.nav`
+interface CollapsibleProp {
+    collapsed: boolean
+}
+
+const Wrapper = styled.nav<CollapsibleProp>`
+    position: sticky;
+    top: 0;
+
     width: fit-content;
+
     background-color: #1f1f23;
     padding: 0;
     height: 100%;
@@ -65,10 +73,6 @@ const Wrapper = styled.nav`
     gap: 5px;
 
 `
-
-interface CollapsibleProp {
-    isCollapsed: boolean
-}
 
 const Header = styled.header`
     padding: 10px;
@@ -82,7 +86,7 @@ const Title = styled.h2<CollapsibleProp>`
     // reset
     margin: 0;
 
-    display: ${props => props.isCollapsed ? `none` : `unset`};
+    display: ${props => props.collapsed ? `none` : `unset`};
 
     font-size: 1rem;
     font-weight: 600;

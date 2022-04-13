@@ -11,7 +11,7 @@ import tfue from './profile-images/Tfue.png'
 export interface Channel {
     user: {
         name: string
-        profilePhotoURL: string | null
+        profilePhotoURL: string
     }
     title: string
     category: string

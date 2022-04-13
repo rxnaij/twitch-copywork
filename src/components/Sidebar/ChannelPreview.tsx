@@ -23,8 +23,8 @@ function ChannelPreview({ channel }: ChannelPreviewProps) {
             onMouseOut={() => setHover(false)}
         >
             <Link collapsed={collapsed} href="#">
-                <ProfileImage className="image-container">
-                    <img className="profile-image" src="" alt="" />
+                <ProfileImage>
+                    <img src={channel.user.profilePhotoURL} alt={channel.user.name} />
                 </ProfileImage>
                 <ChannelInfo collapsed={collapsed}>
                     <ChannelName fontSize={14 / 13}>{channel.user.name}</ChannelName>
