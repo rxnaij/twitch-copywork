@@ -1,37 +1,32 @@
 import './App.css';
+import styled from 'styled-components'
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
+import LiveChannelsSection from './components/LiveChannelsSection';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <main>
+      <Main>
         <Sidebar />
-        <section>
-          <h2>Live channels we think you'll like</h2>
-          <div className="thumbnail-container">
-            <img src="" alt="" />
-            <span>Live</span>
-            <span>19.4K viewers</span>
-          </div>
-          <div className="channel-info">
-            <div className="profile-image-container">
-              <img src="" alt="" />
-            </div>
-            <div className="channel-info">
-              <h3>Title Goes Here</h3>
-              <span>loltyler1</span>
-              <span>League of Legends</span>
-              <div className='tags'>
-                <span>English</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+        <MainContent>
+          <LiveChannelsSection />
+        </MainContent>
+      </Main>
     </div>
   );
 }
+
+const Main = styled.main`
+  position: relative;
+
+  display: flex;
+  flex-direction: row;
+`
+
+const MainContent = styled.div`
+  padding: 0 30px;
+`
 
 export default App;
