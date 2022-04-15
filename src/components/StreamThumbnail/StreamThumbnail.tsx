@@ -8,22 +8,24 @@ interface StreamThumbnailProps {
 function StreamThumbnail({ channel }: StreamThumbnailProps) {
   return (
     <Wrapper>
-        <ThumbnailContainer>
-            <img src="" alt="" />
-            <LiveIndicator>Live</LiveIndicator>
-            <ViewerCount>{channel.viewers} viewers</ViewerCount>
-        </ThumbnailContainer>
+        <ThumbnailContainerBackground>
+            <ThumbnailContainer>
+                <Thumbnail src="" alt="" />
+                <LiveIndicator>Live</LiveIndicator>
+                <ViewerCount>{channel.viewers} viewers</ViewerCount>
+            </ThumbnailContainer>
+        </ThumbnailContainerBackground>
         <ChannelInfo>
             <ProfileImageContainer>
-                <img src="" alt="" />
+                <img src={channel.user.profilePhotoURL} alt={channel.user.name} />
             </ProfileImageContainer>
             <Details>
                 <Title href="#">{channel.title}</Title>
                 <Name href="#">{channel.user.name}</Name>
                 <Category href="#">{channel.category}</Category>
-                <div className='tags'>
-                    <span>English</span>
-                </div>
+                <TagContainer className='tags'>
+                    <Tag>English</Tag>
+                </TagContainer>
             </Details>
         </ChannelInfo>
     </Wrapper>
@@ -38,17 +40,31 @@ const Wrapper = styled.article`
     gap: 10px;
 `
 
-const ThumbnailContainer = styled.div`
-    position: relative;
+// Thumbnail
 
+const ThumbnailContainerBackground = styled.div`
     width: 323px;
     height: 168px;
 
     background-color: darkcyan;
+`
+
+const ThumbnailContainer = styled.div`
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    transition: transform 0.15s linear;
 
     &:hover {
-        transform: translate(10px, -10px);
+        transform: translate(5px, -5px);
     }
+`
+
+const Thumbnail = styled.img`
+    width: 100%;
+    height: 100%;
+    background-color: darkviolet;
 `
 
 const Indicator = styled.span`
@@ -73,6 +89,8 @@ const ViewerCount = styled(Indicator)`
     background-color: #00000070;
 `
 
+// Channel info
+
 const ChannelInfo = styled.div`
     display: flex;
     flex-direction: row;
@@ -88,6 +106,11 @@ const ProfileImageContainer = styled.div`
     border-radius: 50%;
 
     background-color: aliceblue;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 `
 
 
@@ -119,7 +142,7 @@ const Title = styled(UnstyledLink)`
     width: 100%; 
 
     font-size: ${14/13}rem;
-    line-height: ${14/13}rem;
+    line-height: ${16.94/14};
     font-weight: 600;
 
     overflow: hidden;
@@ -129,12 +152,43 @@ const Title = styled(UnstyledLink)`
 
 const Name = styled(UnstyledLink)`
     color: #ADADB8;
+    line-height: ${15.73 / 13};
 `
 
 const Category = styled(UnstyledLink)`
     color: #ADADB8;
+    line-height: ${15.73 / 13};
 `
 
-const Tags = styled.div``
+// Tags
+
+const TagContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 7px;
+`
+
+const Tag = styled.div`
+    padding: 3px 10px;
+    border-radius: 16px;
+
+    background-color: #323234;
+    color: #C4C4C5;
+
+    font-size: ${12/13}rem;
+    font-weight: 600;
+
+    &:hover {
+        cursor: pointer;
+        background: 
+            linear-gradient(0deg, 
+                hsla(0, 0%, 100%, 0.2), 
+                hsla(0, 0%, 100%, 0.2)
+            ), 
+            #323234
+        ;
+    }
+`
 
 export default StreamThumbnail

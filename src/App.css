@@ -48,3 +48,13 @@ body, p {
   font-size: 1.1rem;
   font-weight: 600;
 }
+
+.label--primary {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.label--secondary {
+  font-size: 1rem;
+  color: #ADADB8;
+}
