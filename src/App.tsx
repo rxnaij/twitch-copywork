@@ -27,6 +27,7 @@ const Main = styled.main`
 
 const MainContent = styled.div`
   padding: 0 30px;
+  flex: 1 0 0;
 `
 
 export default App;

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { useSidebarState } from './Sidebar'
 import { Channel } from '../../assets/channelData'
+import { roundViewerCount } from '../../utilities/utilities'
 
 // Props type definition
 
@@ -42,11 +43,6 @@ function ChannelPreview({ channel }: ChannelPreviewProps) {
             }
         </Wrapper>
     )
-}
-
-const roundViewerCount = (n: number) => {
-    if (n < 1000) return n
-    return `${n / 1000}K`
 }
 
 // Styling

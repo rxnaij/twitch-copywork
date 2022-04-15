@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Channel } from '../../assets/channelData'
+import { roundViewerCount } from '../../utilities/utilities'
 
 interface StreamThumbnailProps {
     channel: Channel
@@ -12,7 +13,7 @@ function StreamThumbnail({ channel }: StreamThumbnailProps) {
             <ThumbnailContainer>
                 <Thumbnail src="" alt="" />
                 <LiveIndicator>Live</LiveIndicator>
-                <ViewerCount>{channel.viewers} viewers</ViewerCount>
+                <ViewerCount>{roundViewerCount(channel.viewers)} viewers</ViewerCount>
             </ThumbnailContainer>
         </ThumbnailContainerBackground>
         <ChannelInfo>
@@ -43,8 +44,8 @@ const Wrapper = styled.article`
 // Thumbnail
 
 const ThumbnailContainerBackground = styled.div`
-    width: 323px;
-    height: 168px;
+    width: 100%;
+    aspect-ratio: 1.92;
 
     background-color: darkcyan;
 `
