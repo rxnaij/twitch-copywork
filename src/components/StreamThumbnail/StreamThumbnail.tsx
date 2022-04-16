@@ -142,7 +142,7 @@ const Title = styled(UnstyledLink)`
 
     width: 100%; 
 
-    font-size: ${14/13}rem;
+    font-size: var(--font-size-md);
     line-height: ${16.94/14};
     font-weight: 600;
 

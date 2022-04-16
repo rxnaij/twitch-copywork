@@ -1,6 +1,7 @@
 @import-normalize;
 
 @import './colors.css';
+@import './typography.css';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 *, *::before, *::after {
@@ -11,7 +12,7 @@ html, body {
   background-color: hsl(240, 7%, 6%);
 
   font-family: 'Inter', sans-serif;
-  font-size: 13px;
+  font-size: var(--font-size-base);
 
   color: var(--color-text-primary);
 }
@@ -34,27 +35,23 @@ a:hover  {
 }
 
 body, p {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   line-height: 19px;
   font-weight: 400;
 }
 
 .header {
-  font-size: 1.31rem;
+  font-size: var(--font-size-lg);
   font-weight: 700;
 }
 
-.label {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
 .label--primary {
-  font-size: 1.1rem;
+  font-size: var(--font-size-md);
   font-weight: 600;
+  margin: 0;
 }
 
 .label--secondary {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   color: #ADADB8;
 }
