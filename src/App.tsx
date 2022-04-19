@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
 import LiveChannelsSection from './components/LiveChannelsSection';
+import CategoriesSection from './components/CategoriesSection';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Sidebar />
         <MainContent>
           <LiveChannelsSection />
+          <CategoriesSection />
         </MainContent>
       </Main>
     </div>

@@ -14,6 +14,15 @@ import thumbnail_loltyler1 from './thumbnails/loltyler1.png'
 import thumbnail_nickmercs from './thumbnails/nickmercs.png'
 import thumbnail_officialMikeShinoda from './thumbnails/OfficialMikeShinoda.png'
 
+import category_JustChatting from './categories/Just Chatting.jpg'
+import category_Minecraft from './categories/Minecraft.jpg'
+import category_Fortnite from './categories/Fortnite.jpg'
+import category_CallOfDuty from './categories/Call of Duty Vanguard.jpg'
+import category_Valorant from './categories/VALORANT.jpg'
+import category_CrabGame from './categories/Crab Game.jpg'
+import category_ApexLegends from './categories/Apex Legends.jpg'
+import category_EldenRing from './categories/Elden Ring.jpg'
+import category_BOTW from './categories/BOTW.jpg'
 
 export interface Channel {
     user: {
@@ -146,6 +155,71 @@ const data: Channel[] = [
     }
 ]
 
+export interface CategoryData {
+    name: string
+    viewers: number
+    tags: string[]
+    thumbnail: string
+}
+
+const categoryData: CategoryData[] = [
+    {
+        name: "Just Chatting",
+        viewers: 395000,
+        tags: ["IRL"],
+        thumbnail: category_JustChatting
+    },
+    {
+        name: "Minecraft",
+        viewers: 90900,
+        tags: ["Adventure Game"],
+        thumbnail: category_Minecraft
+    },
+    {
+        name: "Fortnite",
+        viewers: 88800,
+        tags: ["Shooter", "Action"],
+        thumbnail: category_Fortnite
+    },
+    {
+        name: "Call of Duty: Vanguard",
+        viewers: 92800,
+        tags: ["FPS", "Shooter"],
+        thumbnail: category_CallOfDuty
+    },
+    {
+        name: "VALORANT",
+        viewers: 83600,
+        tags: ["Shooter", "FPS"],
+        thumbnail: category_Valorant
+    },
+    {
+        name: "Crab Game",
+        viewers: 41200,
+        tags: ["Fighting", "Strategy"],
+        thumbnail: category_CrabGame
+    },
+    {
+        name: "Apex Legends",
+        viewers: 402000,
+        tags: ["FPS", "Shooter"],
+        thumbnail: category_ApexLegends
+    },
+    {
+        name: "Elden Ring",
+        viewers: 510000,
+        tags: ["FPS", "Shooter"],
+        thumbnail: category_EldenRing
+    },
+    {
+        name: "The Legend of Zelda: Breath of the Wild",
+        viewers: 7100,
+        tags: ["Action"],
+        thumbnail: category_BOTW
+    },
+]
+
 export {
-    data
+    data,
+    categoryData
 }

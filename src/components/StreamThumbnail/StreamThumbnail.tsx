@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+import { Title, Detail } from '../common/typography/index'
+import Tags from '../common/Tags/Tags'
+import Thumbnail from '../common/Thumbnail/Thumbnail'
 import { Channel } from '../../assets/channelData'
 import { roundViewerCount } from '../../utilities/utilities'
 
@@ -9,24 +12,19 @@ interface StreamThumbnailProps {
 function StreamThumbnail({ channel }: StreamThumbnailProps) {
   return (
     <Wrapper>
-        <ThumbnailContainerBackground>
-            <ThumbnailContainer>
-                {  <Thumbnail src={channel.stream?.thumbnail} alt="" /> }
-                <LiveIndicator>Live</LiveIndicator>
-                <ViewerCount>{roundViewerCount(channel.viewers)} viewers</ViewerCount>
-            </ThumbnailContainer>
-        </ThumbnailContainerBackground>
+        <Thumbnail src={channel.stream!.thumbnail} alt="" aspectRatio={1.92}>
+            <LiveIndicator>Live</LiveIndicator>
+            <ViewerCount>{roundViewerCount(channel.viewers)} viewers</ViewerCount>
+        </Thumbnail>
         <ChannelInfo>
             <ProfileImageContainer>
                 <img src={channel.user.profilePhotoURL} alt={channel.user.name} />
             </ProfileImageContainer>
             <Details>
                 <Title href="#">{channel.title}</Title>
-                <Name href="#">{channel.user.name}</Name>
-                <Category href="#">{channel.category}</Category>
-                <TagContainer className='tags'>
-                    { channel.stream?.tags.map(tag => <Tag>{tag}</Tag>) }
-                </TagContainer>
+                <Detail href="#">{channel.user.name}</Detail>
+                <Detail href="#">{channel.category}</Detail>
+                <Tags tags={channel.stream?.tags} />
             </Details>
         </ChannelInfo>
     </Wrapper>
@@ -41,32 +39,7 @@ const Wrapper = styled.article`
     gap: 10px;
 `
 
-// Thumbnail
-
-const ThumbnailContainerBackground = styled.div`
-    width: 100%;
-    aspect-ratio: 1.92;
-
-    background-color: darkcyan;
-`
-
-const ThumbnailContainer = styled.div`
-    position: relative;
-    width: 100%;
-    height: 100%;
-
-    transition: transform 0.15s linear;
-
-    &:hover {
-        transform: translate(5px, -5px);
-    }
-`
-
-const Thumbnail = styled.img`
-    width: 100%;
-    height: 100%;
-    background-color: darkviolet;
-`
+// Thumbnail children
 
 const Indicator = styled.span`
     position: absolute;
@@ -126,70 +99,6 @@ const Details = styled.div`
     gap: 4px;
 
     overflow: hidden;
-`
-
-const UnstyledLink = styled.a`
-    color: unset;
-    text-decoration: none;
-
-    &:hover {
-        color: revert;
-    }
-`
-
-const Title = styled(UnstyledLink)`
-    margin: 0;
-
-    width: 100%; 
-
-    font-size: var(--font-size-md);
-    line-height: ${16.94/14};
-    font-weight: 600;
-
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-`
-
-const Name = styled(UnstyledLink)`
-    color: #ADADB8;
-    line-height: ${15.73 / 13};
-`
-
-const Category = styled(UnstyledLink)`
-    color: #ADADB8;
-    line-height: ${15.73 / 13};
-`
-
-// Tags
-
-const TagContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-top: 7px;
-`
-
-const Tag = styled.div`
-    padding: 3px 10px;
-    border-radius: 16px;
-
-    background-color: #323234;
-    color: #C4C4C5;
-
-    font-size: ${12/13}rem;
-    font-weight: 600;
-
-    &:hover {
-        cursor: pointer;
-        background: 
-            linear-gradient(0deg, 
-                hsla(0, 0%, 100%, 0.2), 
-                hsla(0, 0%, 100%, 0.2)
-            ), 
-            #323234
-        ;
-    }
 `
 
 export default StreamThumbnail
