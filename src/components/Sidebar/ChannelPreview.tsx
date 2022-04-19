@@ -87,6 +87,13 @@ const ProfileImage = styled.div`
 
     border-radius: 50%;
     background-color: white;
+
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 `
 
 const ChannelInfo = styled.div<CollapsibleProp>`

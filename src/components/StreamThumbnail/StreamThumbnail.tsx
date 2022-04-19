@@ -11,7 +11,7 @@ function StreamThumbnail({ channel }: StreamThumbnailProps) {
     <Wrapper>
         <ThumbnailContainerBackground>
             <ThumbnailContainer>
-                <Thumbnail src="" alt="" />
+                {  <Thumbnail src={channel.stream?.thumbnail} alt="" /> }
                 <LiveIndicator>Live</LiveIndicator>
                 <ViewerCount>{roundViewerCount(channel.viewers)} viewers</ViewerCount>
             </ThumbnailContainer>
@@ -25,7 +25,7 @@ function StreamThumbnail({ channel }: StreamThumbnailProps) {
                 <Name href="#">{channel.user.name}</Name>
                 <Category href="#">{channel.category}</Category>
                 <TagContainer className='tags'>
-                    <Tag>English</Tag>
+                    { channel.stream?.tags.map(tag => <Tag>{tag}</Tag>) }
                 </TagContainer>
             </Details>
         </ChannelInfo>
@@ -34,7 +34,7 @@ function StreamThumbnail({ channel }: StreamThumbnailProps) {
 }
 
 const Wrapper = styled.article`
-    flex: 1 0 323px;
+    flex: 1 0 0;
 
     display: flex;
     flex-direction: column;
@@ -72,7 +72,7 @@ const Indicator = styled.span`
     position: absolute;
     left: 10px;
 
-    padding: 2px 5px;
+    padding: 1.5px 5px;
     border-radius: 4px;
 
     color: #fff;

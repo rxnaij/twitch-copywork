@@ -7,6 +7,13 @@ import nickmercs from './profile-images/NICKMERCS.png'
 import sodapoppin from './profile-images/sodapoppin.png'
 import symfuhny from './profile-images/Sympuhny.png'
 import tfue from './profile-images/Tfue.png'
+import officialMikeShinoda from './profile-images/OfficialMikeShinoda.png'
+
+import thumbnail_amouranth from './thumbnails/amouranth.png'
+import thumbnail_loltyler1 from './thumbnails/loltyler1.png'
+import thumbnail_nickmercs from './thumbnails/nickmercs.png'
+import thumbnail_officialMikeShinoda from './thumbnails/OfficialMikeShinoda.png'
+
 
 export interface Channel {
     user: {
@@ -43,7 +50,7 @@ const data: Channel[] = [
         viewers: 32200,
         stream: {
             isLive: true,
-            thumbnail: "",
+            thumbnail: thumbnail_loltyler1,
             tags: [
                 "English"
             ]
@@ -59,8 +66,8 @@ const data: Channel[] = [
         viewers: 822,
         stream: {
             isLive: true,
-            thumbnail: "",
-            tags: []
+            thumbnail: thumbnail_nickmercs,
+            tags: ["English"]
         }
     },
     {
@@ -73,8 +80,8 @@ const data: Channel[] = [
         viewers: 8600,
         stream: {
             isLive: true,
-            thumbnail: "",
-            tags: []
+            thumbnail: thumbnail_amouranth,
+            tags: ["English"]
         }
     },
     {
@@ -121,6 +128,21 @@ const data: Channel[] = [
         title: "duo with john // Follow my socials @iiTzTimmy",
         category: "VALORANT",
         viewers: 21400
+    }
+    ,
+    {
+        user: {
+            name: "OfficialMikeShinoda",
+            profilePhotoURL: officialMikeShinoda
+        },
+        title: "11.16.21 Detroit Become Human",
+        category: "Detroit: Become Human",
+        viewers: 1600,
+        stream: {
+            isLive: true,
+            tags: ["English"],
+            thumbnail: thumbnail_officialMikeShinoda
+        }
     }
 ]
 

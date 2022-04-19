@@ -43,9 +43,7 @@ function Sidebar() {
                     />
                 </Header>
                 <ChannelListWrapper>
-                    {
-                        data.map(channel => <ChannelPreview channel={channel} />)
-                    }
+                    { data.map(channel => <ChannelPreview channel={channel} />) }
                 </ChannelListWrapper>
             </Wrapper>
         </SidebarStateContext.Provider>
@@ -72,6 +70,7 @@ const Wrapper = styled.nav<CollapsibleProp>`
     flex-direction: column;
     gap: 5px;
 
+    z-index: 1;
 `
 
 const Header = styled.header`
