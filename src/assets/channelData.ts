@@ -220,7 +220,37 @@ const categoryData: CategoryData[] = [
     },
 ]
 
+export interface MegaCategoryData {
+    name: string
+    icon: string
+    backgroundImage: string
+}
+
+const megaCategoryData: MegaCategoryData[] = [
+    {
+        name: "Games",
+        icon: "",
+        backgroundImage: ""
+    },
+    {
+        name: "IRL",
+        icon: "",
+        backgroundImage: ""
+    },
+    {
+        name: "Music",
+        icon: "",
+        backgroundImage: ""
+    },
+    {
+        name: "Esports",
+        icon: "",
+        backgroundImage: ""
+    }
+]
+
 export {
     data,
-    categoryData
+    categoryData,
+    megaCategoryData
 }

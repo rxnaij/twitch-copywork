@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import LiveChannelsSection from './components/LiveChannelsSection';
 import CategoriesSection from './components/CategoriesSection';
 import SignUpBanner from './components/SignUpBanner/SignUpBanner';
+import MegaCategoriesSection from './components/MegaCategoriesSection';
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
       <Main>
         <LiveChannelsSection />
         <CategoriesSection />
+        <MegaCategoriesSection />
       </Main>
-      <SignUpBanner />
+      {/* <SignUpBanner /> */}
     </Wrapper>
   );
 }
