@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
 import LiveChannelsSection from './components/LiveChannelsSection';
 import CategoriesSection from './components/CategoriesSection';
+import SignUpBanner from './components/SignUpBanner/SignUpBanner';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <LiveChannelsSection />
         <CategoriesSection />
       </Main>
+      <SignUpBanner />
     </Wrapper>
   );
 }
