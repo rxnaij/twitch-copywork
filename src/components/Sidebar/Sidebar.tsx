@@ -58,13 +58,13 @@ interface CollapsibleProp {
 
 const Wrapper = styled.nav<CollapsibleProp>`
     position: sticky;
-    top: 0;
+    top: 50px;
+    grid-area: sidebar;
 
     width: fit-content;
 
     background-color: #1f1f23;
     padding: 0;
-    height: 100%;
 
     display: flex;
     flex-direction: column;

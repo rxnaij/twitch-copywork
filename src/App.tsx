@@ -7,37 +7,41 @@ import CategoriesSection from './components/CategoriesSection';
 
 function App() {
   return (
-    <div className="App">
+    <Wrapper>
       <Navbar />
+      <Sidebar />
       <Main>
-        <Sidebar />
-        <MainContent>
-          <LiveChannelsSection />
-          <CategoriesSection />
-        </MainContent>
-        <SpacePlaceholder />
+        <LiveChannelsSection />
+        <CategoriesSection />
       </Main>
-    </div>
+    </Wrapper>
   );
 }
 
-const Main = styled.main`
+const Wrapper = styled.div`
   min-height: 100%;
 
   position: relative;
 
+  display: grid;
+  grid-template-columns: fit-content 1fr; // Adapts to width of sidebar
+  grid-template-rows: 50px calc(100vh - 50px) 1fr;
+
+  grid-template-areas: 
+    "navbar navbar"
+    "sidebar main-content"
+    ". main-content"
+  ;
+`
+
+const Main = styled.main`
+  grid-area: main-content;
+  min-height: 100%;
+
   display: flex;
-  flex-direction: row;
-  gap: 30px;    // this + <Spacer /> substitutes padding in <MainContent />
-`
+  flex-direction: column;
 
-const MainContent = styled.div`
-  /* padding: 0 30px; */
-  flex: 1 1 0;
-`
-
-const SpacePlaceholder = styled.div`
-  flex: 0 100000 0;
+  padding: 0 30px;
 `
 
 export default App;
