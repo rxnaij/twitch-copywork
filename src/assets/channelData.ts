@@ -61,7 +61,8 @@ const data: Channel[] = [
             isLive: true,
             thumbnail: thumbnail_loltyler1,
             tags: [
-                "English"
+                "English",
+                "Hype Train"
             ]
         }
     },
@@ -90,7 +91,7 @@ const data: Channel[] = [
         stream: {
             isLive: true,
             thumbnail: thumbnail_amouranth,
-            tags: ["English"]
+            tags: ["English", "IRL"]
         }
     },
     {

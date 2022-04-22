@@ -22,6 +22,7 @@ function Tags({ tags }: TagsProps) {
 const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 7px;
 `
@@ -35,6 +36,8 @@ const Tag = styled(UnstyledLink)`
 
     font-size: ${12/13}rem;
     font-weight: 600;
+
+    white-space: nowrap;  // Prevent tags from wrapping
 
     &:hover {
       cursor: pointer;

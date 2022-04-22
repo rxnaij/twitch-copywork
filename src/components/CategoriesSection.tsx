@@ -1,29 +1,36 @@
 import styled from 'styled-components'
 import { categoryData } from '../assets/channelData'
+import Section from './Section/Section'
 import Category from './Category/Category'
 
 function CategoriesSection() {
   return (
-    <Wrapper>
+    <Section>
         <h2 className="header"><a href="#">Categories</a> we think you'll like</h2>
         <CategoryWrapper>
             { categoryData.map(item => <Category category={item} />) }
         </CategoryWrapper>
-    </Wrapper>
+        <Border />
+    </Section>
   )
 }
 
-// Reuse the Wrapper component in LiveChannelsSection.tsx
-const Wrapper = styled.section`
-  padding: 20px 0;
-  width: 100%;
-`
-
 const CategoryWrapper = styled.div`
+    width: 100%;
+
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 
     gap: 10px;
+`
+
+const Border = styled.div`
+  margin-top: 21px;
+  border-bottom: 1px solid #ffffff10;
+
+  flex: 1;
+  height: 0px;
 `
 
 export default CategoriesSection

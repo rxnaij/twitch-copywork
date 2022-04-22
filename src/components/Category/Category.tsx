@@ -28,7 +28,9 @@ function Category({ category }: CategoryProps) {
 
 
 const Wrapper = styled.article`
-    flex: 1 0 182px;
+    flex: 1 0 0;
+    min-width: 150px;
+    max-width: 285px;
 
     display: flex;
     flex-direction: column;
