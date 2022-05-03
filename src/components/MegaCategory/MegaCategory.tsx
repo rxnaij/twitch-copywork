@@ -35,6 +35,16 @@ const Wrapper = styled.article<BackgroundImageProp>`
 
     font-size: ${30 / 13}rem;
     font-weight: 600;
+
+    cursor: pointer;
+
+    &:hover {
+        background: 
+            linear-gradient(0deg, var(--color-brand-transparent), var(--color-brand-transparent))
+            var(--color-brand-dark),
+            /* var(--color-brand-dark) */
+        ;
+    }
 `
 
 const IconWrapper = styled.div`
@@ -48,8 +58,6 @@ const IconWrapper = styled.div`
     img {
         width: 100%;
         height: 100%;
-
-        background: #abcabc;
     }
 `
 

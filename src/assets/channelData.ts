@@ -24,6 +24,12 @@ import category_ApexLegends from './categories/Apex Legends.jpg'
 import category_EldenRing from './categories/Elden Ring.jpg'
 import category_BOTW from './categories/BOTW.jpg'
 
+import mega_Creative from '../assets/megacategories/Creative.svg'
+import mega_Esports from '../assets/megacategories/Esports.svg'
+import mega_Games from '../assets/megacategories/Games.svg'
+import mega_IRL from '../assets/megacategories/IRL.svg'
+import mega_Music from '../assets/megacategories/Music.svg'
+
 export interface Channel {
     user: {
         name: string
@@ -229,22 +235,27 @@ export interface MegaCategoryData {
 const megaCategoryData: MegaCategoryData[] = [
     {
         name: "Games",
-        icon: "",
+        icon: mega_Games,
         backgroundImage: ""
     },
     {
         name: "IRL",
-        icon: "",
+        icon: mega_IRL,
         backgroundImage: ""
     },
     {
         name: "Music",
-        icon: "",
+        icon: mega_Music,
         backgroundImage: ""
     },
     {
         name: "Esports",
-        icon: "",
+        icon: mega_Esports,
+        backgroundImage: ""
+    },
+    {
+        name: "Creative",
+        icon: mega_Creative,
         backgroundImage: ""
     }
 ]
