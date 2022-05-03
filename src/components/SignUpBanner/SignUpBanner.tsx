@@ -10,9 +10,7 @@ const SignUpBanner = () => {
         </ImageWrapper>
         <p><strong>Join the Twitch community!</strong></p>
         <p>Discover the best live streams anywhere.</p>
-        <Button style={{
-            marginLeft: "auto"
-        }}>Sign Up</Button>
+        <SignUpButton>Sign Up</SignUpButton>
     </Wrapper>
   )
 }
@@ -25,6 +23,7 @@ const Wrapper = styled.div`
     z-index: 3;
 
     padding: 10px 20px;
+    padding-right: 60px;
 
     display: flex;
     flex-direction: row;
@@ -50,6 +49,12 @@ const ImageWrapper = styled.div`
         width: 100%;
         height: 100%;
     }
+`
+
+const SignUpButton = styled(Button)`
+    margin-left: auto;
+    background-color: #fff;
+    color: #000;
 `
 
 export default SignUpBanner

@@ -17,7 +17,7 @@ function App() {
         <CategoriesSection />
         <MegaCategoriesSection />
       </Main>
-      {/* <SignUpBanner /> */}
+      <SignUpBanner />
     </Wrapper>
   );
 }
@@ -46,6 +46,7 @@ const Main = styled.main`
   flex-direction: column;
 
   padding: 0 30px;
+  padding-bottom: 60px;
 `
 
 export default App;
