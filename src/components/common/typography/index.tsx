@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+const Link = styled.a`
+    color: var(--color-brand-light);
+    text-decoration: none;
+`
+
 const UnstyledLink = styled.a`
     color: unset;
     text-decoration: none;
@@ -8,6 +13,7 @@ const UnstyledLink = styled.a`
         color: revert;
     }
 `
+
 
 const Title = styled(UnstyledLink)`
     margin: 0;
@@ -30,6 +36,7 @@ const Detail = styled(UnstyledLink)`
 
 export {
     UnstyledLink,
+    Link,
     Title,
     Detail
 }

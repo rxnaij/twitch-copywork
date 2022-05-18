@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import { categoryData } from '../assets/channelData'
+import { Link } from './common/typography/index'
 import Section from './Section/Section'
 import Category from './Category/Category'
 
 function CategoriesSection() {
   return (
     <Section>
-        <h2 className="header"><a href="#">Categories</a> we think you'll like</h2>
+        <h2 className="header"><Link href="#">Categories</Link> we think you'll like</h2>
         <CategoryWrapper>
             { categoryData.map(item => <Category category={item} />) }
         </CategoryWrapper>

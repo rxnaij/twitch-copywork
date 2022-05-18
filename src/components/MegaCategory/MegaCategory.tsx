@@ -25,24 +25,24 @@ const Wrapper = styled.article<BackgroundImageProp>`
 
     position: relative;
 
-    padding: 15px 12px;
+    padding: 12px 15px;
     border-radius: 10px;
 
     background: 
         ${props => props.backgroundImage}
-        var(--color-brand-dark)
+        var(--color-brand)
     ;
 
     font-size: ${30 / 13}rem;
     font-weight: 600;
+    line-height: 1.2;
 
     cursor: pointer;
 
     &:hover {
         background: 
-            linear-gradient(0deg, var(--color-brand-transparent), var(--color-brand-transparent))
-            var(--color-brand-dark),
-            /* var(--color-brand-dark) */
+            linear-gradient(0deg, var(--color-transparent), var(--color-transparent))
+            var(--color-brand)
         ;
     }
 `
