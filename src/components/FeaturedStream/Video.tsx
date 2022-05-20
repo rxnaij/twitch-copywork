@@ -29,13 +29,25 @@ const Video = () => {
     const { hover, setHover, detectHover } = useHover()
     const [isPlaying, setPlaying] = useState(false)
 
+    /**
+     * Pause video when spacebar key is pressed
+     * @param e keyboard event
+     */
+    const handleSpacebarEvent: React.KeyboardEventHandler = (e) => {
+        e.preventDefault()
+        if (e.key === ' ') setPlaying(!isPlaying)
+    }
+
     /*
     * No hover, video playing --> don't show anything
     * Hover, video playing --> show controls
     * any hover, Video paused (not playing) --> show controls, show foreground cover
     */
     return(      
-        <Wrapper {...detectHover}>
+        <Wrapper {...detectHover} 
+            onKeyDown={handleSpacebarEvent}
+            tabIndex={0}
+        >
             <VideoPlayer />
             <Controls isHovering={hover} isPlaying={isPlaying} setPlaying={setPlaying} />
             <LiveIndicator>LIVE</LiveIndicator>
@@ -141,11 +153,6 @@ const ControlsWrapper = styled.ul<ControlsWrapperProps>`
     padding: 10px;
 
     list-style: none;
-
-    li {
-        margin: 0;
-        padding: 0;
-    }
 `
 
 const BigPause = styled(IconButton)`
