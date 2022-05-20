@@ -43,7 +43,7 @@ function Sidebar() {
                     />
                 </Header>
                 <ChannelListWrapper>
-                    { data.map(channel => <ChannelPreview channel={channel} />) }
+                    { data.map(channel => <ChannelPreview key={`sidebar--channel--${channel.user.name}`} channel={channel} />) }
                 </ChannelListWrapper>
             </Wrapper>
         </SidebarStateContext.Provider>

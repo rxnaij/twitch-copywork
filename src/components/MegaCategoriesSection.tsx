@@ -8,7 +8,7 @@ const MegaCategoriesSection = () => {
     <Section>
         <MegaCategoriesWrapper>
             {
-                megaCategoryData.map(item => <MegaCategory megaCategory={item} />)
+                megaCategoryData.map(item => <MegaCategory key={`megacategory--${item.name}`} megaCategory={item} />)
             }
         </MegaCategoriesWrapper>
     </Section>

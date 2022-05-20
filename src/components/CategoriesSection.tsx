@@ -9,7 +9,7 @@ function CategoriesSection() {
     <Section>
         <h2 className="header"><Link href="#">Categories</Link> we think you'll like</h2>
         <CategoryWrapper>
-            { categoryData.map(item => <Category category={item} />) }
+            { categoryData.map(item => <Category key={`category--${item.name}`} category={item} />) }
         </CategoryWrapper>
         <Border />
     </Section>

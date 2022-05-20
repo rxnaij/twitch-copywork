@@ -10,7 +10,7 @@ function Tags({ tags }: TagsProps) {
     <Wrapper>
       {
         tags?.map(tag => (
-          <Tag>
+          <Tag key={`tag--${tag}`}>
             { tag }
           </Tag>
         ))

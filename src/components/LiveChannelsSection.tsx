@@ -11,7 +11,7 @@ function LiveChannelsSection() {
         <Section>
             <h2 className="header">Live channels we think you'll like</h2>
             <StreamThumbnailWrapper>
-                { channels.map(channel => <StreamThumbnail channel={channel} />) }
+                { channels.map(channel => <StreamThumbnail key={`channel--${channel.user.name}`} channel={channel} />) }
             </StreamThumbnailWrapper>
             <ShowMore />
         </Section>
