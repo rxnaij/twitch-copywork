@@ -5,6 +5,7 @@ import { LiveIndicator } from '../StreamThumbnail/StreamThumbnail'
 import sampleVideoPoster from '../../assets/thumbnails/twitchgaming.png'
 import MenuWrapper from '../common/MenuWrapper/MenuWrapper';
 import Menu from '../common/Menu/Menu';
+import useHover from '../../hooks/useHover';
 
 import { ReactComponent as PauseIcon } from '../../assets/icons/Pause.svg'
 import { ReactComponent as PlayIcon } from '../../assets/icons/Play.svg'
@@ -25,16 +26,20 @@ interface VideoState {
 const VideoContext = createContext<VideoState>(null!)
 
 const Video = () => {
-    const [hover, setHover] = useState(false)
+    const { hover, setHover, detectHover } = useHover()
     const [isPlaying, setPlaying] = useState(false)
-    return(
-        <VideoContext.Provider value={{hover, isPlaying, setPlaying}}>        
-            <Wrapper onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-                <VideoPlayer />
-                <Controls isVisible={hover} isPlaying={isPlaying} setPlaying={setPlaying} />
-                <LiveIndicator>LIVE</LiveIndicator>
-            </Wrapper>
-        </VideoContext.Provider>
+
+    /*
+    * No hover, video playing --> don't show anything
+    * Hover, video playing --> show controls
+    * any hover, Video paused (not playing) --> show controls, show foreground cover
+    */
+    return(      
+        <Wrapper {...detectHover}>
+            <VideoPlayer />
+            <Controls isHovering={hover} isPlaying={isPlaying} setPlaying={setPlaying} />
+            <LiveIndicator>LIVE</LiveIndicator>
+        </Wrapper>
     )
 }
 
@@ -57,20 +62,29 @@ const VideoPlayerWrapper = styled.video`
 `
 
 interface ControlsProps {
-    isVisible: boolean
+    isHovering: boolean
     isPlaying: boolean
     setPlaying: (x: boolean) => void
 }
 
-const Controls = ({ isVisible, isPlaying, setPlaying }: ControlsProps) => {
+const Controls = ({ isHovering, isPlaying, setPlaying }: ControlsProps) => {
     const PlaybackIcon = isPlaying ? PauseIcon : PlayIcon
+
+    // Manage visibility of controls and pause-foreground cover
+    const controlsAreVisible = !isPlaying || isHovering
+    const coverIsVisible = !isPlaying
+    
     return(
-        <ControlsWrapper isVisible={isVisible} isPlaying={isPlaying} setPlaying={setPlaying}>
-            <BigPause 
-                icon={PlayIcon} label="Pause video" 
-                iconWidth={72}
-                iconHeight={93}
-            />
+        <ControlsWrapper controlsAreVisible={controlsAreVisible} coverIsVisible={coverIsVisible}>
+            {
+                !isPlaying &&
+                <BigPause 
+                    icon={PlayIcon} label="Pause video" 
+                    iconWidth={72}
+                    iconHeight={93}
+                    onClick={() => setPlaying(!isPlaying)}
+                />
+            }
             <li>
                 <Pause icon={PlaybackIcon} tooltip="top" label="Pause video" onClick={() => setPlaying(!isPlaying)} />
             </li>
@@ -97,8 +111,13 @@ const Controls = ({ isVisible, isPlaying, setPlaying }: ControlsProps) => {
     )
 }
 
-const ControlsWrapper = styled.ul<ControlsProps>`
-    opacity: ${props => props.isVisible ? 1 : 0};
+interface ControlsWrapperProps {
+    controlsAreVisible: boolean
+    coverIsVisible: boolean
+}
+
+const ControlsWrapper = styled.ul<ControlsWrapperProps>`
+    opacity: ${props => props.controlsAreVisible ? 1 : 0};
     transition: opacity 0.15s ease-out;
 
     margin: 0;
@@ -109,10 +128,10 @@ const ControlsWrapper = styled.ul<ControlsProps>`
     left: 0;
     right: 0;
 
-    // Pause/hover vignette
+    // Background vignette
     background:
-        linear-gradient(180deg, #000 0%, #00000000 50px, #00000000 calc(100% - 50px), #000 100%),   // Upper and lower vignette: activate on hover or pause
-        ${props => props.isPlaying ? `#00000000` : `#00000060` }    // Translucent screen: activate on pause
+        linear-gradient(180deg, #000 0%, #00000000 50px, #00000000 calc(100% - 50px), #000 100%),   // Upper and lower vignette: triggers on hover or pause
+        ${props => props.coverIsVisible ? `#00000060` : `#00000000` }    // Translucent screen: triggers on pause
     ;
 
     display: flex;
