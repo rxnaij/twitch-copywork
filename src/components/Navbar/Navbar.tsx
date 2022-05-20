@@ -107,7 +107,7 @@ export default function Navbar() {
                 <IconButton icon={PrimeIcon} tooltip="bottom" label="Prime Rewards" />
                 <Button variant="secondary">Log In</Button>
                 <Button>Sign Up</Button>
-                <IconButton icon={ProfileIcon} />
+                <IconButton icon={ProfileIcon} label="Profile" />
                 <MenuWrapper icon={ProfileIcon} tooltip="bottom" label="Test">
                     
                     <Menu align="right" name="second">

@@ -66,9 +66,11 @@ const Controls = ({ isVisible, isPlaying, setPlaying }: ControlsProps) => {
     const PlaybackIcon = isPlaying ? PauseIcon : PlayIcon
     return(
         <ControlsWrapper isVisible={isVisible} isPlaying={isPlaying} setPlaying={setPlaying}>
-
-            <BigPause icon={PlayIcon} />
-
+            <BigPause 
+                icon={PlayIcon} label="Pause video" 
+                iconWidth={72}
+                iconHeight={93}
+            />
             <li>
                 <Pause icon={PlaybackIcon} tooltip="top" label="Pause video" onClick={() => setPlaying(!isPlaying)} />
             </li>
@@ -131,8 +133,14 @@ const BigPause = styled(IconButton)`
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 0;
     left: 0;
+    right: 0;
+    
+    margin: auto;
+
+    max-height: none;
+    width: 120px;
+    height: 122px;
 `
 
 const Pause = styled(IconButton)`

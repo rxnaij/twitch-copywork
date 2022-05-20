@@ -39,14 +39,7 @@
     clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
 }
 
-
-
-/*
-
-TODO:
-Split tooltip positioning into top, bottom, and right classes
-
-*/
+/***** Tooltip positioning *****/
 
 .top {
     margin-top: calc(-30px - 12px - 7px);

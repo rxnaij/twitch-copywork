@@ -5,13 +5,11 @@ import clsx from 'clsx'
 export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
     children?: React.ReactNode
     variant?: 'primary' | 'secondary' | 'clear'
-    tooltipMessage?: string
 }
 
 const Button = ({
     className,
     variant = "primary",
-    tooltipMessage = "",
     ...rest
 }: ButtonProps) => {
     return (

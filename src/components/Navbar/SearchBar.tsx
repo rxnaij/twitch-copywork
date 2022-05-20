@@ -48,6 +48,7 @@ export default function SearchBar() {
                                                 [...searchResults.slice(0, i), ...searchResults.slice(i + 1)]
                                             )
                                         }}
+                                        label="Clear result"
                                     />
                                 </a>
                             </div>
