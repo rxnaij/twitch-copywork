@@ -13,6 +13,7 @@ import thumbnail_amouranth from './thumbnails/amouranth.png'
 import thumbnail_loltyler1 from './thumbnails/loltyler1.png'
 import thumbnail_nickmercs from './thumbnails/nickmercs.png'
 import thumbnail_officialMikeShinoda from './thumbnails/OfficialMikeShinoda.png'
+import thumbnail_twitchgaming from './thumbnails/twitchgaming.png'
 
 import category_JustChatting from './categories/Just Chatting.jpg'
 import category_Minecraft from './categories/Minecraft.jpg'
@@ -43,6 +44,11 @@ export interface Channel {
         thumbnail: string
         tags: string[]
     }
+}
+
+export interface FeaturedChannel extends Channel {
+    description: string
+    
 }
 
 const data: Channel[] = [
@@ -162,6 +168,58 @@ const data: Channel[] = [
     }
 ]
 
+const featuredStreamsData: FeaturedChannel[] = [
+    {
+        user: {
+            name: "twitchgaming",
+            profilePhotoURL: thumbnail_twitchgaming,
+        },
+        title: "The Weekly",
+        category: "Just Chatting",
+        viewers: 5800,
+        stream: {
+            isLive: true,
+            tags: ["English", "Co-Stream"],
+            thumbnail: ""
+        },
+        description: "The Weekly is a show on/twitchgaming where YOU get to be a part of the conversation. Come hang out with our hosts and special guests!"
+    },
+    {
+        user: {
+            name: "OfficialMikeShinoda",
+            profilePhotoURL: officialMikeShinoda
+        },
+        title: "11.16.21 Detroit Become Human",
+        category: "Detroit: Become Human",
+        viewers: 1600,
+        stream: {
+            isLive: true,
+            tags: ["English"],
+            thumbnail: thumbnail_officialMikeShinoda
+        },
+        description: ""
+    },
+    {
+        user: {
+            name: "loltyler1",
+            profilePhotoURL: loltyler1
+        },
+        title: "DETERMINE! GREATEST PLAY EVER ANNOUNCEMENT",
+        category: "League of Legends",
+        viewers: 32200,
+        stream: {
+            isLive: true,
+            thumbnail: thumbnail_loltyler1,
+            tags: [
+                "English",
+                "Hype Train"
+            ]
+        },
+        description: ""
+
+    },
+]
+
 export interface CategoryData {
     name: string
     viewers: number
@@ -262,6 +320,7 @@ const megaCategoryData: MegaCategoryData[] = [
 
 export {
     data,
+    featuredStreamsData,
     categoryData,
     megaCategoryData
 }

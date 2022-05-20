@@ -52,7 +52,7 @@ const Indicator = styled.span`
     font-weight: 500;
 `
 
-const LiveIndicator = styled(Indicator)`
+export const LiveIndicator = styled(Indicator)`
     top: 10px;
     background-color: red;
     text-transform: uppercase;

@@ -9,9 +9,10 @@ export interface IconButtonProps extends ButtonProps {
     }>
     tooltip?: 'top' | 'right' | 'bottom'
     label?: string
+    className?: string
 }
 
-export default function IconButton({ icon, tooltip, label, ...rest }: IconButtonProps) {
+export default function IconButton({ icon, tooltip, label, className, ...rest }: IconButtonProps) {
     const [hover, setHover] = useState(false)
     const Icon = icon
     return (
@@ -20,6 +21,7 @@ export default function IconButton({ icon, tooltip, label, ...rest }: IconButton
             variant="clear" 
             className={clsx(
                 styles.button,
+                className
             )} 
             data-tooltip-message={label}
             aria-label={label}

@@ -6,6 +6,7 @@ import LiveChannelsSection from './components/LiveChannelsSection';
 import CategoriesSection from './components/CategoriesSection';
 import SignUpBanner from './components/SignUpBanner/SignUpBanner';
 import MegaCategoriesSection from './components/MegaCategoriesSection';
+import FeaturedStreamsSection from './components/FeaturedStreamsSection';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Navbar />
       <Sidebar />
       <Main>
+        <FeaturedStreamsSection />
         <LiveChannelsSection />
         <CategoriesSection />
         <MegaCategoriesSection />
