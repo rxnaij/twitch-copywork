@@ -6,6 +6,7 @@ import sampleVideoPoster from '../../assets/thumbnails/twitchgaming.png'
 import MenuWrapper from '../common/MenuWrapper/MenuWrapper';
 import Menu from '../common/Menu/Menu';
 import useHover from '../../hooks/useHover';
+import Volume from './Volume'
 
 import { ReactComponent as PauseIcon } from '../../assets/icons/Pause.svg'
 import { ReactComponent as PlayIcon } from '../../assets/icons/Play.svg'
@@ -98,10 +99,15 @@ const Controls = ({ isHovering, isPlaying, setPlaying }: ControlsProps) => {
                 />
             }
             <li>
-                <Pause icon={PlaybackIcon} tooltip="top" label="Pause video" onClick={() => setPlaying(!isPlaying)} />
+                <Pause 
+                    icon={PlaybackIcon} 
+                    tooltip="top" 
+                    label={`${isPlaying ? `Pause` : `Play`} (space)`}
+                    onClick={() => setPlaying(!isPlaying)} 
+                />
             </li>
             <li>
-                <Volume icon={VolumeMuteIcon} tooltip="top" label="Unmute (m)" />
+                <Volume />
             </li>
             <li style={{ marginLeft: 'auto' }}>
                 {/* <Settings icon={SettingsIcon} tooltip="top" label="Settings" /> */}
@@ -170,9 +176,6 @@ const BigPause = styled(IconButton)`
 `
 
 const Pause = styled(IconButton)`
-
-`
-const Volume = styled(IconButton)`
 
 `
 const Settings = styled(IconButton)`
