@@ -1,40 +1,72 @@
-import { CSSProperties, MouseEventHandler, useEffect, useRef, useState } from 'react'
-
+import React, { CSSProperties, MouseEventHandler, useEffect, useRef, useState, useReducer, createContext, useContext } from 'react'
 import styled from 'styled-components'
 import IconButton from '../common/IconButton/IconButton'
-
 import { ReactComponent as VolumeMuteIcon } from '../../assets/icons/Volume Mute.svg'
-import { ReactComponent as VolumeMidIcon } from '../../assets/icons/Volume Mid.svg'
-import { ReactComponent as VolumeHighIcon } from '../../assets/icons/Volume High.svg'
+// I know the icon files are named incorrectly...should probably change that
+import { ReactComponent as VolumeHighIcon } from '../../assets/icons/Volume Low.svg'
+import { ReactComponent as VolumeMidIcon } from '../../assets/icons/Volume High.svg'
+import useHover from '../../hooks/useHover'
 
 
 
 const Volume = () => {
-    // Volume state
-
-    // Volume value: 0 (mute) - 100 (max)
-    // Divided into 3 sections:
-    // Muted
-    // Medium (1-50)
-    // High (50-100)
+    const [sliderValue, setSliderValue] = useState(0)
+    const [savedSliderValue, setSavedSliderValue] = useState(0)
+    const [handleIsMoving, setHandleIsMoving] = useState(false)
+    const VolumeIcon = 
+        (sliderValue === 0)
+        ?   VolumeMuteIcon
+        :   (sliderValue >= 1 && sliderValue < 50)
+            ?   VolumeMidIcon
+            :   VolumeHighIcon
 
     // Slider visibility
     // Visible on hover over slider area or button (use visibility: none or opacity: 0 to hide slider without removing it from DOM)
+    // Keep visible if slider is being controlled (onMouseDown)
+    const { hover, detectHover } = useHover()
 
+    interface VolumeState {
+        sliderIsVisible: boolean
+        handlePos: number
+        sliderValue: number
+    }
 
-    /*
-    * Styling:
-    * icon button <-> slider: 10px
-    */
+    type Action =
+        | { type: "setSliderVisibility", payload: boolean }
+        | { type: "setHandlePos", payload: number }
+        | { type: "setSliderValue", payload: number }
+
+    const volumeStateReducer = (state: VolumeState, action: Action) => {
+        switch(action.type) {
+            case "setSliderValue":
+                return { ...state, sliderValue: action.payload }
+            default:
+                return
+        }
+    }
+
     return (
-        <Wrapper>
+        <Wrapper 
+            {...detectHover}
+        >
             <IconButton
-                icon={VolumeMuteIcon}
+                icon={VolumeIcon}
                 tooltip="top"
-                label="Unmute (m)"
+                label={`${sliderValue === 0 ? `Unmute` : `Mute`} (m)`}
+                onClick={() => {
+                    if (sliderValue !== 0) {
+                        setSavedSliderValue(sliderValue)
+                        setSliderValue(0)
+                    } else {
+                        setSliderValue(savedSliderValue)
+                        setSavedSliderValue(0)
+                    }
+                }}
             />
             <Slider
-
+                isVisible={hover || handleIsMoving}
+                setSliderValue={setSliderValue}
+                setHandleIsMoving={setHandleIsMoving}
             />
         </Wrapper>
     )
@@ -47,14 +79,17 @@ const Wrapper = styled.div`
     gap: 10px;
 `
 
-const Slider = () => {
+interface SliderProps {
+    isVisible: boolean
+    setSliderValue: (n: number) => void
+    setHandleIsMoving: (x: boolean) => void
+}
+
+const Slider = ({ isVisible, setSliderValue, setHandleIsMoving }: SliderProps) => {
     const sliderRef = useRef<HTMLDivElement>(null!)
     const handleRef = useRef<HTMLDivElement>(null!)
 
-    const [handleIsMoving, setHandleIsMoving] = useState(false)
-    const [handlePos, setHandlePos] = useState(0)
-
-    const [sliderValue, setSliderValue] = useState(0)
+    const [handlePos, setHandlePos] = useState(20)
 
     /**
      * Maps the physical position of the Handle to a percentage value between 0 and 1
@@ -72,7 +107,8 @@ const Slider = () => {
         // Don't run if the refs haven't initialized yet
         if (!sliderRef.current || !handleRef.current) return
 
-        setSliderValue(mapRange(handlePos, 0, sliderRef.current.getBoundingClientRect().width - handleRef.current.getBoundingClientRect().width, 0, 1))
+        const maxLength = sliderRef.current.getBoundingClientRect().width - handleRef.current.getBoundingClientRect().width
+        setSliderValue(mapRange(handlePos, 0, maxLength, 0, 1))
     }, [handlePos, setSliderValue])
 
     /**
@@ -82,7 +118,8 @@ const Slider = () => {
     const onMouseDown: MouseEventHandler = (event) => {
         event.preventDefault()
         setHandleIsMoving(true)
-        console.log("Handle is moused down")
+
+        moveHandle(event)   // Moves mouse to location on mousedown
 
         // We add the mousemove and mouseup event listeners to the `document` object to
         // allow the user to move the mouse and release the click button anywhere in the document
@@ -90,10 +127,10 @@ const Slider = () => {
         document.addEventListener('mouseup', onMouseUp)
 
         /**
-         * Change the position of the Handle on mouse move.
-         * Note that this is a DOM MouseEvent on the Document object and not a React MouseEvent.
-        */
-        function onMouseMove(event: MouseEvent) {
+         * Move handle to mouse's location
+         * @param event Can be either a DOM MouseEvent or React MouseEvent
+         */
+        function moveHandle(event: MouseEvent | React.MouseEvent) {
             // Since we only have access to the absolute position of the mouse in the viewport, we begin our calculations in absolute values
             // then convert them to relative values later
 
@@ -119,6 +156,14 @@ const Slider = () => {
         }
 
         /**
+         * Change the position of the Handle on mouse move.
+         * Note that this is a DOM MouseEvent on the Document object and not a React MouseEvent.
+        */
+        function onMouseMove(event: MouseEvent) {
+            moveHandle(event)
+        }
+
+        /**
          * End movement and clean up event listeners on mouse up.
          * Note that this is a DOM MouseEvent on the Document object and not a React MouseEvent.
          */
@@ -131,31 +176,45 @@ const Slider = () => {
     }
 
     return (
-        <SliderWrapper ref={sliderRef}>
+        <SliderWrapper 
+            ref={sliderRef} 
+            onMouseDown={onMouseDown} 
+            style={{
+                '--is-visible': isVisible ? 1 : 0
+            } as CSSProperties}
+        >
             <SliderTrack />
-            <SliderRange />
+            <SliderRange
+                style={{
+                    '--width': handlePos + 'px'
+                } as CSSProperties}
+            />
             <Handle
                 ref={handleRef}
                 style={{
                     '--relative-left-position': handlePos + 'px'
                 } as CSSProperties}
                 onMouseDown={onMouseDown}
-                onDragStart={() => false}
             />
         </SliderWrapper>
     )
 }
+
 
 const SliderWrapper = styled.div`
     position: relative;
     width: 110px;
     height: 16px;
 
-    background-color: #ffffff50;
+    opacity: var(--is-visible);
+    transition: 0.15s ease-out opacity;
 
     cursor: pointer;
 `
 
+/** 
+ * Base component for SliderTrack and SliderRange
+ */
 const Track = styled.div`
     width: 100%;
     height: 2px;
@@ -165,19 +224,25 @@ const Track = styled.div`
     top: calc(50% - 1px);
 `
 
+/**
+ * Background track
+ */
 const SliderTrack = styled(Track)`
-
-    background-color: #ffffff;
+    background-color: #ffffff50;
 `
 
+/**
+ * Foreground range
+ */
 const SliderRange = styled(Track)`
-
-    background-color: #ff00ff;
+    width: var(--width);
+    background-color: #ffffff;
 `
 
 const Handle = styled.div`
     position: relative;
     top: 0;
+    bottom: 0;
     left: var(--relative-left-position);
     width: 16px;
     height: 16px;
@@ -187,6 +252,5 @@ const Handle = styled.div`
 
     cursor: pointer;
 `
-
 
 export default Volume
