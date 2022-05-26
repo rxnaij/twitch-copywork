@@ -10,9 +10,10 @@ interface MenuProps {
     // The following props are only relevant in nested menus.
     name?: string
     base?: boolean      // If true, is designated as the "initial state" for the menu.
+    style?: {}
 }
 
-export default function Menu({ children, align="left", name, base=false }: MenuProps) {
+export default function Menu({ children, align="left", name, base=false, style={} }: MenuProps) {
 
     const { activeMenu, setActiveMenu } = useMenuWrapperState()
     
@@ -56,6 +57,7 @@ export default function Menu({ children, align="left", name, base=false }: MenuP
                     styles.menu,
                     styles[`${align}-aligned`]
                 )}
+                style={style}
             >
                 { children }
             </nav>
@@ -98,7 +100,9 @@ interface ButtonProps {
     }>
     propertyName: string
     valueName: string
-    valueIcon?: React.ReactNode
+    valueIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
+        title?: string | undefined;
+    }>
     navigateTo?: string
 }
 
@@ -114,10 +118,6 @@ const Button = ({
 
     const { setActiveMenu } = useMenuWrapperState()
 
-    function navigate() {
-        if (navigateTo) setActiveMenu(navigateTo)
-    }
-
     return(
         <div 
             className={clsx(
@@ -126,7 +126,7 @@ const Button = ({
             )} 
             onClick={e => {
                 e.preventDefault()
-                navigate()
+                if (navigateTo) setActiveMenu(navigateTo)
             }}
         >
             <div className={styles.property}>
@@ -139,7 +139,7 @@ const Button = ({
             <div className={styles.value}>
                 <span>{valueName}</span>
                 {
-                    valueIcon
+                    ValueIcon && <ValueIcon width={20} height={20} fill="#fff" />
                 }
             </div>
         </div>

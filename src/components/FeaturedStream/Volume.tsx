@@ -12,41 +12,17 @@ import useHover from '../../hooks/useHover'
 const Volume = () => {
     const [sliderValue, setSliderValue] = useState(0)
     const [savedSliderValue, setSavedSliderValue] = useState(0)
-    const [handleIsMoving, setHandleIsMoving] = useState(false)
-    const VolumeIcon = 
+    const VolumeIcon =
         (sliderValue === 0)
-        ?   VolumeMuteIcon
-        :   (sliderValue >= 1 && sliderValue < 50)
-            ?   VolumeMidIcon
-            :   VolumeHighIcon
-
-    // Slider visibility
-    // Visible on hover over slider area or button (use visibility: none or opacity: 0 to hide slider without removing it from DOM)
-    // Keep visible if slider is being controlled (onMouseDown)
+            ? VolumeMuteIcon
+            : (sliderValue >= 1 && sliderValue < 50)
+                ? VolumeMidIcon
+                : VolumeHighIcon
+    const [handleIsMoving, setHandleIsMoving] = useState(false)
     const { hover, detectHover } = useHover()
 
-    interface VolumeState {
-        sliderIsVisible: boolean
-        handlePos: number
-        sliderValue: number
-    }
-
-    type Action =
-        | { type: "setSliderVisibility", payload: boolean }
-        | { type: "setHandlePos", payload: number }
-        | { type: "setSliderValue", payload: number }
-
-    const volumeStateReducer = (state: VolumeState, action: Action) => {
-        switch(action.type) {
-            case "setSliderValue":
-                return { ...state, sliderValue: action.payload }
-            default:
-                return
-        }
-    }
-
     return (
-        <Wrapper 
+        <Wrapper
             {...detectHover}
         >
             <IconButton
@@ -176,9 +152,9 @@ const Slider = ({ isVisible, setSliderValue, setHandleIsMoving }: SliderProps) =
     }
 
     return (
-        <SliderWrapper 
-            ref={sliderRef} 
-            onMouseDown={onMouseDown} 
+        <SliderWrapper
+            ref={sliderRef}
+            onMouseDown={onMouseDown}
             style={{
                 '--is-visible': isVisible ? 1 : 0
             } as CSSProperties}

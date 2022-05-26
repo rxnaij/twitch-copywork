@@ -96,7 +96,7 @@ export default function Navbar() {
                         <Menu.Button 
                             propertyIcon={PrimeIcon}
                             propertyName="Prime"
-                            valueIcon={<ProfileIcon width={20} height={20} fill="#fff" />}
+                            valueIcon={ProfileIcon}
                             valueName="Test button"
                         />
                     </Menu>

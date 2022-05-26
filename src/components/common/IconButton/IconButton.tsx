@@ -46,7 +46,8 @@ export default function IconButton({
                 fill="#FFFFFF" 
             />
             {
-                tooltip && hover &&
+                tooltip && 
+                hover &&
                 <Tooltip position={tooltip} label={label} />
             }
             <VisuallyHidden>{label}</VisuallyHidden>

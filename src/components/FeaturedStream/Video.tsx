@@ -3,10 +3,10 @@ import styled from "styled-components";
 import IconButton from '../common/IconButton/IconButton'
 import { LiveIndicator } from '../StreamThumbnail/StreamThumbnail'
 import sampleVideoPoster from '../../assets/thumbnails/twitchgaming.png'
-import MenuWrapper from '../common/MenuWrapper/MenuWrapper';
-import Menu from '../common/Menu/Menu';
+
 import useHover from '../../hooks/useHover';
 import Volume from './Volume'
+import Settings from './Settings'
 
 import { ReactComponent as PauseIcon } from '../../assets/icons/Pause.svg'
 import { ReactComponent as PlayIcon } from '../../assets/icons/Play.svg'
@@ -44,8 +44,8 @@ const Video = () => {
     * Hover, video playing --> show controls
     * any hover, Video paused (not playing) --> show controls, show foreground cover
     */
-    return(      
-        <Wrapper {...detectHover} 
+    return (
+        <Wrapper {...detectHover}
             onKeyDown={handleSpacebarEvent}
             tabIndex={0}
         >
@@ -63,7 +63,7 @@ const Wrapper = styled.div`
 `
 
 const VideoPlayer = () => {
-    return(
+    return (
         <VideoPlayerWrapper poster={sampleVideoPoster} />
     )
 }
@@ -86,41 +86,31 @@ const Controls = ({ isHovering, isPlaying, setPlaying }: ControlsProps) => {
     // Manage visibility of controls and pause-foreground cover
     const controlsAreVisible = !isPlaying || isHovering
     const coverIsVisible = !isPlaying
-    
-    return(
+
+    return (
         <ControlsWrapper controlsAreVisible={controlsAreVisible} coverIsVisible={coverIsVisible}>
             {
                 !isPlaying &&
-                <BigPause 
-                    icon={PlayIcon} label="Pause video" 
+                <BigPause
+                    icon={PlayIcon} label="Pause video"
                     iconWidth={72}
                     iconHeight={93}
                     onClick={() => setPlaying(!isPlaying)}
                 />
             }
             <li>
-                <Pause 
-                    icon={PlaybackIcon} 
-                    tooltip="top" 
+                <Pause
+                    icon={PlaybackIcon}
+                    tooltip="top"
                     label={`${isPlaying ? `Pause` : `Play`} (space)`}
-                    onClick={() => setPlaying(!isPlaying)} 
+                    onClick={() => setPlaying(!isPlaying)}
                 />
             </li>
             <li>
                 <Volume />
             </li>
             <li style={{ marginLeft: 'auto' }}>
-                {/* <Settings icon={SettingsIcon} tooltip="top" label="Settings" /> */}
-                <MenuWrapper icon={SettingsIcon} tooltip="top" label="Settings">
-                    <Menu name="base" base={true}>
-                        <Menu.Button
-                            propertyName='Quality'
-                            valueName="Auto"
-                            valueIcon={PlayIcon}
-                            navigateTo=""
-                        />
-                    </Menu>
-                </MenuWrapper>
+                <Settings />
             </li>
             <li>
                 <Fullscreen icon={FullscreenIcon} tooltip="top" label="Fullscreen" />
@@ -149,7 +139,7 @@ const ControlsWrapper = styled.ul<ControlsWrapperProps>`
     // Background vignette
     background:
         linear-gradient(180deg, #000 0%, #00000000 50px, #00000000 calc(100% - 50px), #000 100%),   // Upper and lower vignette: triggers on hover or pause
-        ${props => props.coverIsVisible ? `#00000060` : `#00000000` }    // Translucent screen: triggers on pause
+        ${props => props.coverIsVisible ? `#00000060` : `#00000000`}    // Translucent screen: triggers on pause
     ;
 
     display: flex;
@@ -178,9 +168,7 @@ const BigPause = styled(IconButton)`
 const Pause = styled(IconButton)`
 
 `
-const Settings = styled(IconButton)`
-    margin-left: auto;
-`
+
 const Fullscreen = styled(IconButton)`
 
 `

@@ -1,6 +1,7 @@
 import { ReactNode, useRef, createContext, useContext, useState } from 'react'
 import { useOutsideClickListener } from '../../../hooks/useOutsideClickListener'
 import IconButton, { IconButtonProps } from '../IconButton/IconButton'
+import styled from 'styled-components'
 
 interface MenuState {
     activeMenu?: string
@@ -17,9 +18,11 @@ export function useMenuWrapperState() {
 
 interface MenuWrapperProps extends IconButtonProps {
     children: ReactNode
+    menuSide?: 'top' | 'bottom'
+    menuAlignment?: 'left' | 'right'
 }
 
-export default function MenuWrapper({ children, ...props }: MenuWrapperProps) {
+export default function MenuWrapper({ children, menuSide="top", menuAlignment="left", ...props }: MenuWrapperProps) {
     const menuRef = useRef<HTMLDivElement>(null)
     const {
         modalIsOpen,
@@ -30,9 +33,10 @@ export default function MenuWrapper({ children, ...props }: MenuWrapperProps) {
     
     return (
         <MenuWrapperStateContext.Provider value={{ activeMenu, setActiveMenu }}>
-            <div 
-                style={{ position: 'relative' }}
+            <Wrapper
                 ref={menuRef}
+                menuSide={menuSide}
+                menuAlignment={menuAlignment}
             >
                 <IconButton 
                     onClick={() => setModalIsOpen(!modalIsOpen)} 
@@ -42,7 +46,17 @@ export default function MenuWrapper({ children, ...props }: MenuWrapperProps) {
                     modalIsOpen &&
                     children
                 }
-            </div>
+            </Wrapper>
         </MenuWrapperStateContext.Provider>
     )
 }
+
+interface WrapperProps {
+    menuSide: 'top' | 'bottom'
+    menuAlignment: 'left' | 'right'
+}
+
+const Wrapper = styled.div<WrapperProps>`
+    position: relative;
+    z-index: 10;
+`
