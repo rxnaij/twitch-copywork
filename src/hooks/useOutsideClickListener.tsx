@@ -27,12 +27,9 @@ export function useOutsideClickListener(modalRef: MutableRefObject<HTMLElement |
             // Casting the EventTarget to an HTMLElement here because I don't think
             // the user will be clicking any non-HTML elements. I hope that's OK
             if (modalElement.contains(event.target as HTMLElement)) {
-                console.log("Click inside element - modal stays open")
                 return
             }
             setModalIsOpen(false)
-
-            console.log("Click outside element - modal closed")
         }
 
         // Listen for a click event outside of the element.
