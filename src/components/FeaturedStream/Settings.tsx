@@ -126,7 +126,7 @@ const RadioButton = ({ name, id, value, isActive, onChange }: RadioButtonProps) 
                     '--color-inactive': `#ADADB8`
                 } as CSSProperties}
             />
-            <input type="radio" id={id} name={name} value={value} defaultChecked={isActive} />
+            <HiddenInput type="radio" id={id} name={name} value={value} defaultChecked={isActive} />
             <span>{value}</span>
         </RadioLabel>
     )
