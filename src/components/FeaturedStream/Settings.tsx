@@ -3,7 +3,6 @@ import styled, { CSSProp } from 'styled-components'
 import MenuWrapper from '../common/MenuWrapper/MenuWrapper';
 import Menu from '../common/Menu/Menu';
 import { ReactComponent as SettingsIcon } from '../../assets/icons/Settings.svg'
-import { ReactComponent as PlayIcon } from '../../assets/icons/Play.svg'
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/ChevronRight.svg'
 import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/ChevronLeft.svg'
 
@@ -54,13 +53,13 @@ const Settings = () => {
                     navigateTo="base"
                 />
                 <Menu.Border />
-                <RadioButton name="quality" id="auto" value="Auto" onChange={() => setQuality("Auto")} checked={true} />
-                <RadioButton name="quality" id="1080p60" value="1080p60" onChange={() => setQuality("1080p60 (Source)")} />
-                <RadioButton name="quality" id="720p60" value="720p60" onChange={() => setQuality("720p60")} />
-                <RadioButton name="quality" id="720p" value="720p" onChange={() => setQuality("720p")} />
-                <RadioButton name="quality" id="480p" value="480p" onChange={() => setQuality("480p")} />
-                <RadioButton name="quality" id="360p" value="360p" onChange={() => setQuality("360p")} />
-                <RadioButton name="quality" id="144p" value="144p" onChange={() => setQuality("144p")} />
+                <RadioButton name="quality" id="auto" value="Auto" isActive={quality === 'auto'} defaultChecked onChange={() => setQuality("auto")} />
+                <RadioButton name="quality" id="1080p60" value="1080p60 (Source)" isActive={quality === '1080p60'} onChange={() => setQuality("1080p60")} />
+                <RadioButton name="quality" id="720p60" value="720p60" isActive={quality === '720p60'} onChange={() => setQuality("720p60")} />
+                <RadioButton name="quality" id="720p" value="720p" isActive={quality === '720p'} onChange={() => setQuality("720p")} />
+                <RadioButton name="quality" id="480p" value="480p" isActive={quality === '480p'} onChange={() => setQuality("480p")} />
+                <RadioButton name="quality" id="360p" value="360p" isActive={quality === '360p'} onChange={() => setQuality("360p")} />
+                <RadioButton name="quality" id="144p" value="144p" isActive={quality === '144p'} onChange={() => setQuality("144p")} />
             </Menu>
             <Menu
                 name="advanced"
@@ -80,18 +79,48 @@ const Settings = () => {
     )
 }
 
+/**
+ * Visually hides input without removing it from the DOM.
+ * Allows accessibility for keyboard users
+ */
+const HiddenInput = styled.input`
+    display: inline-block;
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1;
+    width: 1;
+    margin: -1;
+    padding: 0;
+    border: 0;
+`
+
 interface RadioButtonProps {
     name: string
     id: string
     value: string
-    checked?: boolean
+    defaultChecked?: boolean
+    isActive: boolean
     onChange: () => void
 }
 
-const RadioButton = ({ name, id, value, checked = false }: RadioButtonProps) => {
+const RadioButton = ({ name, id, value, defaultChecked=false, isActive, onChange }: RadioButtonProps) => {
+
     return (
-        <RadioLabel>
-            <RadioInput type="radio" id={id} name={name} value={value} defaultChecked={checked} />
+        <RadioLabel onClick={onChange}>
+            <RadioInput 
+                style={{
+                    '--border-color': isActive 
+                        ? `var(--color-brand-light)` 
+                        : `#ADADB8`,
+                    '--border-color-hover': '#fff',
+                    '--button-background': isActive
+                        ? `radial-gradient(50% 50% at 50% 50%, var(--color-brand-light) 0%, var(--color-brand-light) 60%, rgba(123, 97, 255, 0) 60.01%, rgba(123, 97, 255, 0) 100%)`
+                        : `transparent`,
+                    '--color-inactive': `#ADADB8`
+                } as CSSProperties}
+            />
+            <HiddenRadio type="radio" id={id} name={name} value={value} defaultChecked={defaultChecked} />
             <span>{value}</span>
         </RadioLabel>
     )
@@ -106,31 +135,28 @@ const RadioLabel = styled.label`
     width: 270px;
 `
 
-const RadioInput = styled.input`
-    appearance: none;
-    
-    /* Hide native radio input; use special styling instead */
-    &::before {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        min-width: 20px;
-        min-height: 20px;
+const HiddenRadio = styled(HiddenInput)``
 
-        padding: 2px;
+const RadioInput = styled.div`
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
 
-        border: 2px solid #ADADB8;
-        border-radius: 50%;
-        background: transparent;
+    padding: 2px;
 
-        content: "";
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    background: var(--button-background);
+
+    content: "";
+
+    &:hover {
+        border-color: var(--border-color-hover);
     }
 
-    &:hover::before {
-        border-color: #fff;
-    }
-
-    &:checked::before {
+    &:checked {
         border-color: var(--color-brand-light);
 
         background: radial-gradient(50% 50% at 50% 50%, var(--color-brand-light) 0%, var(--color-brand-light) 60%, rgba(123, 97, 255, 0) 60.01%, rgba(123, 97, 255, 0) 100%);
@@ -215,8 +241,7 @@ const ToggleInput = styled.span`
     }
 `
 
-const HiddenCheckbox = styled.input`
-    display: none;
+const HiddenCheckbox = styled(HiddenInput)`
     position: absolute;
     width: 1px;
     height: 1px;
