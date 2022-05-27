@@ -155,7 +155,6 @@ const Toggle = ({ name }: ToggleProps) => {
                     '--button-color': isActive ? `var(--color-brand-light)` : `#fff`,
                     '--button-position': isActive ? `18px` : `3px`
                 } as CSSProperties}
-                onClick={() => setActive(!isActive)}
             >
                 <Checkmark
                     style={{
@@ -167,7 +166,7 @@ const Toggle = ({ name }: ToggleProps) => {
                     </svg>
                 </Checkmark>
             </ToggleInput>
-            <HiddenInput type="checkbox" />
+            <HiddenCheckbox type="checkbox" checked={isActive} onChange={() => setActive(!isActive)} />
         </ToggleLabel>
     )
 }
@@ -185,13 +184,8 @@ const ToggleLabel = styled(RadioLabel)`
 
 const ToggleInput = styled.span`
     position: relative;
-
-
     width: 35px;
     height: 20px;
-    /* margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    margin-top: 0.25rem; */
 
     // Switch visual styles
     // Background
@@ -221,7 +215,7 @@ const ToggleInput = styled.span`
     }
 `
 
-const HiddenInput = styled.input`
+const HiddenCheckbox = styled.input`
     display: none;
     position: absolute;
     width: 1px;
@@ -233,15 +227,6 @@ const HiddenInput = styled.input`
     border: 0;
     visibility: inherit;
     clip-path: polygon(0, 0, 0, 0);
-
-    &::before {
-        content: "";
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background-color: white;
-        border-radius: 50%;
-    }
 `
 
 export default Settings
