@@ -89,7 +89,7 @@ const Link = ({ href, children, ...rest }: LinkProps) => (
 /* Divider */
 const Border = () => (
     <div className={styles.border}>
-        <hr />
+        <div />
     </div>
 )
 
@@ -103,7 +103,7 @@ interface ButtonProps {
     valueIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
         title?: string | undefined;
     }>
-    navigateTo?: string
+    navigateTo?: string | "close"
 }
 
 const Button = ({
@@ -126,7 +126,9 @@ const Button = ({
             )} 
             onClick={e => {
                 e.preventDefault()
-                if (navigateTo) setActiveMenu(navigateTo)
+                if (navigateTo) {
+                    setActiveMenu(navigateTo)
+                }
             }}
         >
             <div className={styles.property}>

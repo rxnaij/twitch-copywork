@@ -59,4 +59,13 @@ interface WrapperProps {
 const Wrapper = styled.div<WrapperProps>`
     position: relative;
     z-index: 10;
+
+    & > nav {
+        // Place menu to top or bottom of button
+        top: ${props => props.menuSide === `top` ? `auto` : `unset`};
+        bottom: ${props => props.menuSide === `top` ? `30px` : `unset`};
+        // Align menu to left or right edge of button
+        left: ${props => props.menuAlignment === 'left' ? 0 : `unset`};
+        right: ${props => props.menuAlignment === 'right' ? 0 : `unset`};
+    }
 `

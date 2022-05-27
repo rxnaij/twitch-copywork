@@ -2,6 +2,7 @@ import { useState, CSSProperties } from 'react'
 import styled, { CSSProp } from 'styled-components'
 import MenuWrapper from '../common/MenuWrapper/MenuWrapper';
 import Menu from '../common/Menu/Menu';
+import { ReactComponent as CloseIcon } from '../../assets/icons/Close.svg'
 import { ReactComponent as SettingsIcon } from '../../assets/icons/Settings.svg'
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/ChevronRight.svg'
 import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/ChevronLeft.svg'
@@ -9,8 +10,15 @@ import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/ChevronLef
 const Settings = () => {
     const [quality, setQuality] = useState('auto')
     return (
-        <MenuWrapper icon={SettingsIcon} tooltip="top" label="Settings">
+        <MenuWrapper icon={SettingsIcon} tooltip="top" label="Settings" menuAlignment="right" >
             <Menu name="base" base={true}>
+                <Menu.Button 
+                    propertyName="Close"
+                    propertyIcon={CloseIcon}
+                    valueName=""
+                    navigateTo=''
+                />
+                <Menu.Border />
                 <Menu.Button
                     propertyName='Quality'
                     valueName="Auto"
@@ -47,7 +55,7 @@ const Settings = () => {
                 overflowY: 'scroll'
             }}>
                 <Menu.Button
-                    propertyName='Back'
+                    propertyName='Video Quality'
                     propertyIcon={ChevronLeftIcon}
                     valueName=""
                     navigateTo="base"
@@ -65,7 +73,7 @@ const Settings = () => {
                 name="advanced"
             >
                 <Menu.Button
-                    propertyName='Back'
+                    propertyName='Advanced'
                     propertyIcon={ChevronLeftIcon}
                     valueName=""
                     navigateTo="base"
@@ -119,7 +127,7 @@ const RadioButton = ({ name, id, value, isActive, onChange }: RadioButtonProps) 
                     '--border-color': isActive 
                         ? `var(--color-brand-light)` 
                         : `#ADADB8`,
-                    '--border-color-hover': '#fff',
+                    '--border-color-hover': !isActive && '#fff',
                     '--button-background': isActive
                         ? `radial-gradient(50% 50% at 50% 50%, var(--color-brand-light) 0%, var(--color-brand-light) 60%, rgba(123, 97, 255, 0) 60.01%, rgba(123, 97, 255, 0) 100%)`
                         : `transparent`,
@@ -153,6 +161,10 @@ const RadioInput = styled.div`
     border: 2px solid var(--border-color);
     border-radius: 50%;
     background: var(--button-background);
+
+    ${RadioLabel}:hover & {
+        border-color: var(--border-color-hover);
+    }
 `
 
 interface ToggleProps {
