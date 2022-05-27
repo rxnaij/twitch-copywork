@@ -7,7 +7,7 @@ import { ReactComponent as ChevronRightIcon } from '../../assets/icons/ChevronRi
 import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/ChevronLeft.svg'
 
 const Settings = () => {
-    const [quality, setQuality] = useState('Auto (1080p)')
+    const [quality, setQuality] = useState('auto')
     return (
         <MenuWrapper icon={SettingsIcon} tooltip="top" label="Settings">
             <Menu name="base" base={true}>
@@ -53,7 +53,7 @@ const Settings = () => {
                     navigateTo="base"
                 />
                 <Menu.Border />
-                <RadioButton name="quality" id="auto" value="Auto" isActive={quality === 'auto'} defaultChecked onChange={() => setQuality("auto")} />
+                <RadioButton name="quality" id="auto" value="Auto" isActive={quality === 'auto'} onChange={() => setQuality("auto")} />
                 <RadioButton name="quality" id="1080p60" value="1080p60 (Source)" isActive={quality === '1080p60'} onChange={() => setQuality("1080p60")} />
                 <RadioButton name="quality" id="720p60" value="720p60" isActive={quality === '720p60'} onChange={() => setQuality("720p60")} />
                 <RadioButton name="quality" id="720p" value="720p" isActive={quality === '720p'} onChange={() => setQuality("720p")} />
@@ -104,10 +104,16 @@ interface RadioButtonProps {
     onChange: () => void
 }
 
-const RadioButton = ({ name, id, value, defaultChecked=false, isActive, onChange }: RadioButtonProps) => {
+const RadioButton = ({ name, id, value, isActive, onChange }: RadioButtonProps) => {
 
     return (
-        <RadioLabel onClick={onChange}>
+        <RadioLabel 
+            onClick={(e) => {
+                e.preventDefault()
+                onChange()
+            }}
+            htmlFor={id}
+        >
             <RadioInput 
                 style={{
                     '--border-color': isActive 
@@ -120,7 +126,7 @@ const RadioButton = ({ name, id, value, defaultChecked=false, isActive, onChange
                     '--color-inactive': `#ADADB8`
                 } as CSSProperties}
             />
-            <HiddenRadio type="radio" id={id} name={name} value={value} defaultChecked={defaultChecked} />
+            <input type="radio" id={id} name={name} value={value} defaultChecked={isActive} />
             <span>{value}</span>
         </RadioLabel>
     )
@@ -135,8 +141,6 @@ const RadioLabel = styled.label`
     width: 270px;
 `
 
-const HiddenRadio = styled(HiddenInput)``
-
 const RadioInput = styled.div`
     display: inline-block;
     width: 20px;
@@ -149,20 +153,6 @@ const RadioInput = styled.div`
     border: 2px solid var(--border-color);
     border-radius: 50%;
     background: var(--button-background);
-
-    content: "";
-
-    &:hover {
-        border-color: var(--border-color-hover);
-    }
-
-    &:checked {
-        border-color: var(--color-brand-light);
-
-        background: radial-gradient(50% 50% at 50% 50%, var(--color-brand-light) 0%, var(--color-brand-light) 60%, rgba(123, 97, 255, 0) 60.01%, rgba(123, 97, 255, 0) 100%);
-    }
-
-
 `
 
 interface ToggleProps {
@@ -192,7 +182,7 @@ const Toggle = ({ name }: ToggleProps) => {
                     </svg>
                 </Checkmark>
             </ToggleInput>
-            <HiddenCheckbox type="checkbox" checked={isActive} onChange={() => setActive(!isActive)} />
+            <HiddenInput type="checkbox" checked={isActive} onChange={() => setActive(!isActive)} />
         </ToggleLabel>
     )
 }
@@ -239,19 +229,6 @@ const ToggleInput = styled.span`
         content: '';
         transition: left 100ms ease-out;
     }
-`
-
-const HiddenCheckbox = styled(HiddenInput)`
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    border: 0;
-    visibility: inherit;
-    clip-path: polygon(0, 0, 0, 0);
 `
 
 export default Settings
