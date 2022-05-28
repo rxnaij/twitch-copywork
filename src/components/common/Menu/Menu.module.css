@@ -20,14 +20,6 @@
     overflow-y: auto;
 }
 
-.left-aligned {
-    left: 0;
-}
-
-.right-aligned {
-    right: 0;
-}
-
 .menuEnter {
     transform: translateX(-110%);
 }
@@ -61,7 +53,7 @@
 /* Link */
 
 .link {
-    width: 230px;
+    min-width: 230px;
     padding: 5px;
 
     line-height: 1.461;
@@ -101,6 +93,8 @@
     padding: 5px;
 
     color: var(--color-text-primary);
+
+    min-width: 270px;
 }
 
 .button:hover {

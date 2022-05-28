@@ -51,7 +51,6 @@ const Settings = () => {
             </Menu>
             <Menu name="quality" style={{
                 maxHeight: 220,
-                overflowY: 'scroll'
             }}>
                 <Menu.Button
                     propertyName='Video Quality'

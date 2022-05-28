@@ -14,7 +14,6 @@ interface MenuProps {
 }
 
 export default function Menu({ children, align="left", name, base=false, style={} }: MenuProps) {
-
     const { activeMenu, setActiveMenu } = useMenuWrapperState()
     
     useEffect(() => {
@@ -22,8 +21,7 @@ export default function Menu({ children, align="left", name, base=false, style={
             setActiveMenu(name)
         }, 
         // Disable reason:
-        // This effect should only run once: when the parent MenuWrapper
-        // component mounts.
+        // This effect should only run once: when the parent MenuWrapper component mounts.
         //eslint-disable-next-line
         []
     )

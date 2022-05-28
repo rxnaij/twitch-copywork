@@ -18,7 +18,7 @@ export default function Navbar() {
                     <TwitchLogo />
                 </a>
                 <a href="/" className={styles.link}>Browse</a>
-                <MenuWrapper icon={MenuIcon} tooltip="bottom" label="More">
+                <MenuWrapper icon={MenuIcon} tooltip="bottom" label="More" menuSide='bottom' menuAlignment='left'>
                     <Menu>
                         <Menu.Header>
                             General
@@ -93,12 +93,6 @@ export default function Navbar() {
                         <Menu.Link href="/">
                             Terms
                         </Menu.Link>
-                        <Menu.Button 
-                            propertyIcon={PrimeIcon}
-                            propertyName="Prime"
-                            valueIcon={ProfileIcon}
-                            valueName="Test button"
-                        />
                     </Menu>
                 </MenuWrapper>
             </div>
@@ -108,7 +102,7 @@ export default function Navbar() {
                 <Button variant="secondary">Log In</Button>
                 <Button>Sign Up</Button>
                 <IconButton icon={ProfileIcon} label="Profile" />
-                <MenuWrapper icon={ProfileIcon} tooltip="bottom" label="Test">
+                <MenuWrapper icon={ProfileIcon} tooltip="bottom" label="Test" menuAlignment='right' menuSide='bottom'>
                     
                     <Menu align="right" name="second">
                         <Menu.Button propertyName="To First" valueName="Go" navigateTo="first" />
