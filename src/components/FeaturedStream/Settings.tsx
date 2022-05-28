@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import MenuWrapper from '../common/MenuWrapper/MenuWrapper';
 import Menu from '../common/Menu/Menu';
@@ -12,6 +12,7 @@ import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/ChevronLef
 
 const Settings = () => {
     const [quality, setQuality] = useState('auto')
+
     return (
         <MenuWrapper icon={SettingsIcon} tooltip="top" label="Settings" menuAlignment="right" >
             <Menu name="base" base={true}>
