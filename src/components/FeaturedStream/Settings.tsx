@@ -1,7 +1,9 @@
-import { useState, CSSProperties } from 'react'
-import styled, { CSSProp } from 'styled-components'
+import { useState, useRef, CSSProperties } from 'react'
+import styled from 'styled-components'
 import MenuWrapper from '../common/MenuWrapper/MenuWrapper';
 import Menu from '../common/Menu/Menu';
+import Button from '../common/Button/Button'
+import { useOutsideClickListener } from '../../hooks/useOutsideClickListener';
 import { ReactComponent as CloseIcon } from '../../assets/icons/Close.svg'
 import { ReactComponent as SettingsIcon } from '../../assets/icons/Settings.svg'
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/ChevronRight.svg'
@@ -12,7 +14,7 @@ const Settings = () => {
     return (
         <MenuWrapper icon={SettingsIcon} tooltip="top" label="Settings" menuAlignment="right" >
             <Menu name="base" base={true}>
-                <Menu.Button 
+                <Menu.Button
                     propertyName="Close"
                     propertyIcon={CloseIcon}
                     valueName=""
@@ -35,19 +37,15 @@ const Settings = () => {
                     propertyName='Report Playback Issue'
                     valueName="Auto"
                     valueIcon={ChevronRightIcon}
-                    navigateTo="quality"
+                    navigateTo="reportPlaybackIssue"
                 />
                 <Menu.Button
                     propertyName='Popout Player'
-                    valueName="Auto"
-                    valueIcon={ChevronRightIcon}
-                    navigateTo="quality"
+                    valueName=""
                 />
                 <Menu.Button
                     propertyName='View Keyboard Shortcuts'
-                    valueName="Auto"
-                    valueIcon={ChevronRightIcon}
-                    navigateTo="quality"
+                    valueName=""
                 />
             </Menu>
             <Menu name="quality" style={{
@@ -83,6 +81,16 @@ const Settings = () => {
                 <Toggle name="Video Stats" />
                 <Toggle name="Ad Stats" />
             </Menu>
+            <Menu name="reportPlaybackIssue">
+                <Menu.Button
+                    propertyName="Report Playback Issue"
+                    propertyIcon={ChevronLeftIcon}
+                    valueName=""
+                    navigateTo="base"
+                />
+                <Menu.Border />
+                <Dropdown />
+            </Menu>
         </MenuWrapper>
     )
 }
@@ -115,17 +123,17 @@ interface RadioButtonProps {
 const RadioButton = ({ name, id, value, isActive, onChange }: RadioButtonProps) => {
 
     return (
-        <RadioLabel 
+        <RadioLabel
             onClick={(e) => {
                 e.preventDefault()
                 onChange()
             }}
             htmlFor={id}
         >
-            <RadioInput 
+            <RadioInput
                 style={{
-                    '--border-color': isActive 
-                        ? `var(--color-brand-light)` 
+                    '--border-color': isActive
+                        ? `var(--color-brand-light)`
                         : `#ADADB8`,
                     '--border-color-hover': !isActive && '#fff',
                     '--button-background': isActive
@@ -190,7 +198,7 @@ const Toggle = ({ name }: ToggleProps) => {
                     } as CSSProperties}
                 >
                     <svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 3.30769L3.45 6L8 1" stroke="#BF94FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M1 3.30769L3.45 6L8 1" stroke="#BF94FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </Checkmark>
             </ToggleInput>
@@ -240,6 +248,91 @@ const ToggleInput = styled.span`
         background-color: var(--button-color);
         content: '';
         transition: left 100ms ease-out;
+    }
+`
+
+
+const Dropdown = () => {
+    const [value, setValue] = useState('Select')
+
+    const dropdownOptions = [
+        `Audio and video stutter`,
+        `Video stutters, but audio is fine`,
+        `Video is completely black or doesn't load`,
+        `Audio and video aren't synced`,
+        `Fullscreen playback doesn't work`,
+        `Advertisement playback doesn't work.`,
+        `Advertisement has played too many times.`,
+        `Advertisement is offensive or inappropriate.`,
+        `Advertisement is too loud.`,
+        `Advertisement is not relevant to my interests.`
+    ]
+
+    return (
+        <DropdownWrapper>
+            <label htmlFor="report-playback-issue-dropdown">Noticed a video playback issue? Let us know!</label>
+            <DropdownSelect id="report-playback-issue-dropdown">
+                <option value="" selected disabled >Select</option>
+                {
+                    dropdownOptions.map((item, i) => {
+                        return(
+                            <option 
+                                key={`report-playback-option--${i}`} 
+                                value={item}
+                                onClick={() => setValue(item)}
+                            >
+                                {item}
+                            </option>
+                        )
+                    })
+                }
+            </DropdownSelect>
+            <Button>Submit</Button>
+        </DropdownWrapper>
+    )
+}
+
+const DropdownWrapper = styled.div`
+    padding: 10px;
+    width: 270px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+`
+
+const DropdownSelect = styled.select`
+    appearance: none;
+
+    position: relative;
+    align-self: stretch;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 5px 10px;
+    background-color: #ffffff20;
+    border: 2px solid none;
+    border-radius: 2px;
+
+    cursor: pointer;
+    color: white;
+
+    &:hover {
+        border-color: #ffffff20;
+    }
+
+    &:focus, &:active {
+        outline: none;
+        border-color: var(--color-brand);
+        background-color: black;
+    }
+
+    option {
+        background-color: black;
+        color: white;
     }
 `
 
