@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import MenuWrapper from '../common/MenuWrapper/MenuWrapper';
 import Menu from '../common/Menu/Menu';
 import Button from '../common/Button/Button'
-import { useOutsideClickListener } from '../../hooks/useOutsideClickListener';
 import { ReactComponent as CloseIcon } from '../../assets/icons/Close.svg'
 import { ReactComponent as SettingsIcon } from '../../assets/icons/Settings.svg'
 import { ReactComponent as ChevronRightIcon } from '../../assets/icons/ChevronRight.svg'
@@ -23,19 +22,19 @@ const Settings = () => {
                 <Menu.Border />
                 <Menu.Button
                     propertyName='Quality'
-                    valueName="Auto"
+                    valueName={quality}
                     valueIcon={ChevronRightIcon}
                     navigateTo="quality"
                 />
                 <Menu.Button
                     propertyName='Advanced'
-                    valueName="Auto"
+                    valueName=""
                     valueIcon={ChevronRightIcon}
                     navigateTo="advanced"
                 />
                 <Menu.Button
                     propertyName='Report Playback Issue'
-                    valueName="Auto"
+                    valueName=""
                     valueIcon={ChevronRightIcon}
                     navigateTo="reportPlaybackIssue"
                 />
@@ -59,7 +58,7 @@ const Settings = () => {
                     navigateTo="base"
                 />
                 <Menu.Border />
-                <RadioButton name="quality" id="auto" value="Auto" isActive={quality === 'auto'} onChange={() => setQuality("auto")} />
+                <RadioButton name="quality" id="Auto" value="Auto" isActive={quality === 'Auto'} onChange={() => setQuality("Auto")} />
                 <RadioButton name="quality" id="1080p60" value="1080p60 (Source)" isActive={quality === '1080p60'} onChange={() => setQuality("1080p60")} />
                 <RadioButton name="quality" id="720p60" value="720p60" isActive={quality === '720p60'} onChange={() => setQuality("720p60")} />
                 <RadioButton name="quality" id="720p" value="720p" isActive={quality === '720p'} onChange={() => setQuality("720p")} />
