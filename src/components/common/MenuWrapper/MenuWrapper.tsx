@@ -6,6 +6,8 @@ import styled from 'styled-components'
 interface MenuState {
     activeMenu?: string
     setActiveMenu: (value: string | undefined) => void
+    isOpen: boolean
+    setOpen: (state: boolean) => void
 }
 
 const MenuWrapperStateContext = createContext({} as MenuState)
@@ -22,50 +24,63 @@ interface MenuWrapperProps extends IconButtonProps {
     menuAlignment?: 'left' | 'right'
 }
 
-export default function MenuWrapper({ children, menuSide="top", menuAlignment="left", ...props }: MenuWrapperProps) {
+export default function MenuWrapper({ children, menuSide = "top", menuAlignment = "left", ...props }: MenuWrapperProps) {
     const menuRef = useRef<HTMLDivElement>(null)
     const {
-        modalIsOpen,
-        setModalIsOpen
+        modalIsOpen: isOpen,
+        setModalIsOpen: setOpen
     } = useOutsideClickListener(menuRef)
 
     const [activeMenu, setActiveMenu] = useState<string | undefined>()
-    
+
     return (
-        <MenuWrapperStateContext.Provider value={{ activeMenu, setActiveMenu }}>
-            <Wrapper
-                ref={menuRef}
-                menuSide={menuSide}
-                menuAlignment={menuAlignment}
-            >
-                <IconButton 
-                    onClick={() => setModalIsOpen(!modalIsOpen)} 
-                    {...props} 
+        <MenuWrapperStateContext.Provider
+            value={{
+                activeMenu,
+                setActiveMenu,
+                isOpen,
+                setOpen,
+            }}
+        >
+            <Wrapper ref={menuRef}>
+                <IconButton
+                    onClick={() => setOpen(!isOpen)}
+                    {...props}
                 />
-                {
-                    modalIsOpen &&
-                    children
-                }
+                <MenuContainer menuSide={menuSide} menuAlignment={menuAlignment}>
+                    {
+                        isOpen &&
+                        children
+                    }
+                </MenuContainer>
             </Wrapper>
         </MenuWrapperStateContext.Provider>
     )
 }
 
-interface WrapperProps {
+/* MenuWrapper styling */
+
+const Wrapper = styled.div`
+    position: relative;
+`
+
+interface MenuContainerProps {
     menuSide: 'top' | 'bottom'
     menuAlignment: 'left' | 'right'
 }
 
-const Wrapper = styled.div<WrapperProps>`
-    position: relative;
-    z-index: 10;
-
+const MenuContainer = styled.div<MenuContainerProps>`
     & > nav {
-        // Place menu to top or bottom of button
-        top: ${props => props.menuSide === `top` ? `auto` : `unset`};
-        bottom: ${props => props.menuSide === `top` ? `30px` : `unset`};
+        // Place menu on vertical side of button
+        top: ${props => props.menuSide === `bottom` ? `30px` : `auto`};   // bottom side
+        bottom: ${props => props.menuSide === `top` ? `30px` : `auto`};      // top side
+    
         // Align menu to left or right edge of button
-        left: ${props => props.menuAlignment === 'left' ? 0 : `unset`};
-        right: ${props => props.menuAlignment === 'right' ? 0 : `unset`};
+        left: ${props => props.menuAlignment === 'left' ? 0 : `unset`};     // left aligned
+        right: ${props => props.menuAlignment === 'right' ? 0 : `unset`};       // right aligned
+    
+        /* overflow: hidden; */
+        z-index: 10;
     }
+    
 `

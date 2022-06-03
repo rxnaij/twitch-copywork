@@ -104,13 +104,13 @@ export default function Navbar() {
                 <IconButton icon={ProfileIcon} label="Profile" />
                 <MenuWrapper icon={ProfileIcon} tooltip="bottom" label="Test" menuAlignment='right' menuSide='bottom'>
                     
-                    <Menu align="right" name="second">
+                    <Menu name="second">
                         <Menu.Button propertyName="To First" valueName="Go" navigateTo="first" />
                         <Menu.Link href="/#">
                             Here's another filler link
                         </Menu.Link>
                     </Menu>
-                    <Menu align="right" name="first" base>
+                    <Menu name="first" base>
                         <Menu.Button propertyName="To Second" valueName="Go" navigateTo="second" />
                         <Menu.Link href="/#">
                             First Filler link

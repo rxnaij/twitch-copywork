@@ -11,7 +11,7 @@ import { ReactComponent as ChevronRightIcon } from '../../assets/icons/ChevronRi
 import { ReactComponent as ChevronLeftIcon } from '../../assets/icons/ChevronLeft.svg'
 
 const Settings = () => {
-    const [quality, setQuality] = useState('auto')
+    const [quality, setQuality] = useState('Auto')
 
     return (
         <MenuWrapper icon={SettingsIcon} tooltip="top" label="Settings" menuAlignment="right" >
@@ -20,7 +20,7 @@ const Settings = () => {
                     propertyName="Close"
                     propertyIcon={CloseIcon}
                     valueName=""
-                    navigateTo=''
+                    navigateTo='CLOSE'
                 />
                 <Menu.Border />
                 <Menu.Button

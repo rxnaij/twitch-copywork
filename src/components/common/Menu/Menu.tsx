@@ -6,14 +6,13 @@ import { CSSTransition } from 'react-transition-group'
 
 interface MenuProps {
     children: React.ReactNode
-    align?: "left" | "right"
     // The following props are only relevant in nested menus.
     name?: string
     base?: boolean      // If true, is designated as the "initial state" for the menu.
     style?: {}
 }
 
-export default function Menu({ children, align="left", name, base=false, style={} }: MenuProps) {
+export default function Menu({ children, name, base=false, style={} }: MenuProps) {
     const { activeMenu, setActiveMenu } = useMenuWrapperState()
     
     useEffect(() => {
@@ -26,40 +25,23 @@ export default function Menu({ children, align="left", name, base=false, style={
         []
     )
 
-    /** Parent container */
-    const TransitionWrapper = ({ children }: { children: ReactNode }  ) => {
-        if (name) {
-            return (
-                <CSSTransition
-                    in={activeMenu === name}
-                    timeout={500}
-                    classNames={{
-                        enter: styles.menuEnter,
-                        enterActive: styles.menuEnterActive,
-                        exit: styles.menuExit,
-                        exitActive: styles.menuExitActive
-                    }}
-                    unmountOnExit
-                >
-                    { children }
-                </CSSTransition>
-            )
-        }
-        return <>{ children }</>
-    }
-
     return (
-        <TransitionWrapper>
+        <CSSTransition
+            in={activeMenu === name}
+            timeout={0}
+            classNames={{
+                enter: styles.menuEnter,
+                exit: styles.menuExit,
+            }}
+            unmountOnExit
+        >
             <nav 
-                className={clsx(
-                    styles.menu,
-                    styles[`${align}-aligned`]
-                )}
+                className={styles.menu}
                 style={style}
             >
                 { children }
             </nav>
-        </TransitionWrapper>
+        </CSSTransition>
     )
 }
 
@@ -101,7 +83,7 @@ interface ButtonProps {
     valueIcon?: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {
         title?: string | undefined;
     }>
-    navigateTo?: string | "close"
+    navigateTo?: string | "CLOSE"   // if set to `close`, signals that the containing MenuWrapper should close itself
 }
 
 const Button = ({
@@ -114,7 +96,7 @@ const Button = ({
     const PropertyIcon = propertyIcon
     const ValueIcon = valueIcon
 
-    const { setActiveMenu } = useMenuWrapperState()
+    const { setActiveMenu, isOpen, setOpen } = useMenuWrapperState()
 
     return(
         <div 
@@ -125,7 +107,8 @@ const Button = ({
             onClick={e => {
                 e.preventDefault()
                 if (navigateTo) {
-                    setActiveMenu(navigateTo)
+                    if (navigateTo === `CLOSE`) setOpen(false)
+                    else setActiveMenu(navigateTo)
                 }
             }}
         >

@@ -3,8 +3,8 @@
 /* Menu */
 
 .menu {
-    position: absolute;
-    top: 30px;
+    position: absolute; 
+    top: 0;
 
     max-height: 67vh;
     padding: 10px;
@@ -21,21 +21,11 @@
 }
 
 .menuEnter {
-    transform: translateX(-110%);
-}
-
-.menuEnterActive {
-    transform: translateX(0%);
-    transition: all 500ms ease;
+    display: block;
 }
 
 .menuExit {
-    transform: translateX(-110%);
-}
-
-.menuExitActive {
-    transform: translateX(0%);
-    transition: all 500ms ease;
+    display: none;
 }
 
 /* Header */
